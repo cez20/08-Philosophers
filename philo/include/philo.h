@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 15:54:43 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/07/22 11:58:52 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/07/23 11:44:42 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <pthread.h>  // for all pthread functions
 # include <sys/time.h> // for gettimeof day function 
 # include <unistd.h> //for usleep function
-
+# include <string.h>  // for memset
 
 //*** MAIN.C ***
 int main();
