@@ -6,21 +6,19 @@
 #    By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/20 15:53:41 by cemenjiv          #+#    #+#              #
-<<<<<<< HEAD
-#    Updated: 2022/07/24 03:12:31 by cemenjiv         ###   ########.fr        #
-=======
-#    Updated: 2022/07/23 12:18:49 by cemenjiv         ###   ########.fr        #
->>>>>>> 749342b965bf20d0412c98e6309e67843163a807
+#    Updated: 2022/07/24 03:30:00 by cemenjiv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME			= philo  #nom de l'executable que l'on veut creer 
+NAME			= philo 
 
 SRCS			= $(wildcard srcs/*.c)
 
 HEADER			= -Iinclude/
 				  	  
 HEADER_PATH     = include/
+
+PTHREAD			= -pthread
 						
 OBJS			= $(SRCS:.c=.o) #Declaration OBJS (objets). Tous les fichiers terminant par le suffixe .c vont devenir .o
 
@@ -29,7 +27,7 @@ CFLAGS			= -Wall -Wextra -Werror -g  #nom des differents flags a utiliser
 RM				= rm -f  #shortcut Rm fait ce que fait normalement rm -f 
 
 %.o: %.c
-				$(CC) $(CFLAGS) $(HEADER) -c $< -o $@
+				$(CC) $(CFLAGS) $(HEADER) $(LPTHREAD) -c $< -o $@
 
 all:			$(NAME)  #commande "make all" fait ce que la variable NAME fait
 
