@@ -6,30 +6,59 @@
 #    By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/20 15:53:41 by cemenjiv          #+#    #+#              #
-#    Updated: 2022/07/22 12:57:05 by cemenjiv         ###   ########.fr        #
+#    Updated: 2022/07/24 03:12:31 by cemenjiv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = philo
+NAME			= philo  #nom de l'executable que l'on veut creer 
 
-SRCS:= $(notdir $(wildcard srcs/*.c))
-OBJS:= $(SRCS:.c=.o) #Is this really mandatory???
+SRCS			= $(wildcard srcs/*.c)
 
-INC = -Iinclude/
+HEADER			= -Iinclude/
+				  	  
+HEADER_PATH     = include/
+						
+OBJS			= $(SRCS:.c=.o) #Declaration OBJS (objets). Tous les fichiers terminant par le suffixe .c vont devenir .o
 
-CC     = gcc
-CFLAGS = -Wall -Wextra -Werror -g 
-RM     = rm -f
+CC				= gcc  #name of C compiler
+CFLAGS			= -Wall -Wextra -Werror -g  #nom des differents flags a utiliser 
+RM				= rm -f  #shortcut Rm fait ce que fait normalement rm -f 
+
+%.o: %.c
+				$(CC) $(CFLAGS) $(HEADER) -c $< -o $@
+
+all:			$(NAME)  #commande "make all" fait ce que la variable NAME fait
+
+$(NAME):		$(OBJS)
+				@printf "\033c"
+				@echo "\n\033[33m    COMPILING [*......]"
+				@sleep 0.5
+				@printf "\033c"
+				@echo "\n\033[33m    COMPILING [****...]"
+				@$(CC) ${OBJS} -o $@
+				@sleep 0.5
+				@printf "\033c"
+				@echo "\n\033[33m    COMPILING [*******]"
+				@echo "\n\033[32m\033[1m philo program is compiled! \n\033[0m"					
+	
+clean:		
+				$(RM) $(OBJS)
+				
+fclean:			clean
+				$(RM) $(NAME)
+				
+re:				fclean all
+				
+
+.PHONY:			all clean fclean re
 
 
-## This is called a double suffix rule. It is defined by a a pair of suffixes: target suffi and the source suffix
-# target suffix is .o and sources suffix are .c
-#.c.o is equivalent to the pattern rule %.o : %.c
-
-%.o: %.c 
-	$(CC) $(CFLAGS) -c $<
-
-all:    $(NAME)
-
-$(NAME):	$(OBJS)
-			$(CC) $(OBJS) -o $(NAME)
+norm:
+				@norminette $(HEADER_PATH)
+				@norminette $(SRCS)
+				
+push:
+				@git add .
+				@read -p "name of commit: " INP \
+				&& git commit -m "$${INP}"
+				@git push

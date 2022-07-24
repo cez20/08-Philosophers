@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 15:54:30 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/07/22 12:45:12 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/07/22 14:04:46 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int main (int argc, char **argv) // Current main function is not working. Simpl 
 	i = 0;
 	while (i < nb_philosophers) // Create a thread for each philosophers. 
 	{
-		if (pthread_create(&philo[i], NULL, &routine, NULL) != 0) 
+		if (pthread_create(&philo, NULL, &routine, NULL) != 0) 
 		{
 			perror("Failed to create thread");
 			return 1;
@@ -62,7 +62,7 @@ int main (int argc, char **argv) // Current main function is not working. Simpl 
 	i--;
 	while (i >= 0) // Wait for each thread.
 	{
-		if (pthread_join(&philo[i], (void**)&result) != 0) //
+		if (pthread_join(philo, (void**)&result) != 0) //
 			return 2;
 		printf("%p\n", result);
 		i--;
