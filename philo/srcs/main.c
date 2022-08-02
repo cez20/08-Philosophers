@@ -6,75 +6,48 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 15:54:30 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/07/26 15:44:24 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/08/02 12:14:03 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-pthread_mutex_t mutex;
+//Main function:
+//pthread_t creates the variable necessary when creating thread with pthread_create.
+//pthread_mutex_t create the variable necessary to create a mutex with p_thread_mutex_init(protection so that not many thread access info)
+//First while loop allows us to create 1 thread per philosophers
+//Second while loop call a "wait" with pthread_join so it wait for each thread to finish before going to next one.
 
-void	*routine() // Fonction bidon utilise dans le pthread_create ici-bas. 
+int	main(int argc, char **argv)
 {
-	int i;
-	int mails;
-	int *result;
-	
+	pthread_mutex_t	mutex;
+	pthread_t		*philo;
+	int				*result;
+	int				i;
+	int				nb_philo;
+
 	i = 0;
-	mails = 0;
-	result = malloc(sizeof(int)); // Necessary to dynamically allocated a vairable if we want its result to be returned in main function.  
-	while (i < 10000)
-	{
-		pthread_mutex_lock(&mutex); //Protection pour eviter que d'autres threads ne viennent lire et ecrire donnee
-		mails++;
-		pthread_mutex_unlock(&mutex);//Enleve la protection;
-		i++; 
-	}
-	*result = mails;
-	printf("%p\n", result);
-	return ((void *)result);
-}
-
-int main (int argc, char **argv) // Current main function is not working. Simpl giving an idea of what to do.  
-{
-	pthread_t	*philo;
-	int nb_philo;
-	int i;
-	// int *result;
-	
 	if (argc == 5 || argc == 6)
 	{
 		pthread_mutex_init(&mutex, NULL);
 		nb_philo = atoi(argv[1]);
-		philo = malloc ((nb_philo + 1) * sizeof(int));
+		philo = malloc((nb_philo + 1) * sizeof(int));
 		if (!philo)
-			return (NULL);
-		while(i < nb_philo)
+			return (1);
+		while (i < nb_philo)
 		{
-			
-			
+			if (pthread_create(&philo[i], NULL, &routine, NULL) != 0) // P-e pas besoin de ampersand(&)
+				return (1);
+			printf("Thread %d has started\n", i);
+			i++;
+		}
+		i = 0;
+		while (i < nb_philo)
+		{
+			if (pthread_join(philo[i], (void **)&result) != 0)
+				return (2);
+			printf("Thread %d has finished execution\n", i);
+			i++;
 		}
 	}
-	i = 0;
-	
-	// philo = malloc(nb_philosophers * sizeof(int)); //malloc enough size for array 
-	// i = 0;
-	// while (i < nb_philosophers) // Create a thread for each philosophers. 
-	// {
-	// 	if (pthread_create(&philo, NULL, &routine, NULL) != 0) 
-	// 	{
-	// 		perror("Failed to create thread");
-	// 		return 1;
-	// 	}
-	// 	i++;	
-	// }
-	// i--;
-	// while (i >= 0) // Wait for each thread.
-	// {
-	// 	if (pthread_join(philo, (void**)&result) != 0) //
-	// 		return 2;
-	// 	printf("%p\n", result);
-	// 	i--;
-	// }
-
 }
