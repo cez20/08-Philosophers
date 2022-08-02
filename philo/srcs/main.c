@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 15:54:30 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/08/02 12:14:03 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/08/02 13:52:20 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,24 @@
 //First while loop allows us to create 1 thread per philosophers
 //Second while loop call a "wait" with pthread_join so it wait for each thread to finish before going to next one.
 
+void	*routine(void *mails)
+{
+
+	(*(int *)mails)++;
+	sleep(3);
+	return (NULL);
+}
+
 int	main(int argc, char **argv)
 {
 	pthread_mutex_t	mutex;
 	pthread_t		*philo;
-	int				*result;
-	int				i;
 	int				nb_philo;
+	int				i;
+	int 			mails;
 
 	i = 0;
+	mails = 0;
 	if (argc == 5 || argc == 6)
 	{
 		pthread_mutex_init(&mutex, NULL);
@@ -36,18 +45,21 @@ int	main(int argc, char **argv)
 			return (1);
 		while (i < nb_philo)
 		{
-			if (pthread_create(&philo[i], NULL, &routine, NULL) != 0) // P-e pas besoin de ampersand(&)
+			if (pthread_create(&philo[i], NULL, &routine, (void *)&mails) != 0)
 				return (1);
-			printf("Thread %d has started\n", i);
+			printf("Value of mails is %d\n", mails);
 			i++;
 		}
 		i = 0;
 		while (i < nb_philo)
 		{
-			if (pthread_join(philo[i], (void **)&result) != 0)
+			if (pthread_join(philo[i], NULL) != 0)
 				return (2);
 			printf("Thread %d has finished execution\n", i);
 			i++;
 		}
 	}
+	else
+		printf("Error\n");
+	return (0);
 }
