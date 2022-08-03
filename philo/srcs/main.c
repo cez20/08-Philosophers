@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 15:54:30 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/08/03 16:04:03 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/08/03 17:35:13 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ int main(int argc, char **argv)
 
 	if (argc == 5 || argc == 6)
 	{
-		create_thread(&thread, argv);
+		create_data(&thread, argv);
+		create_thread(&thread);
 		finish_thread(&thread);
 	}
 	else

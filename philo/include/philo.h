@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 15:54:43 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/08/03 16:44:41 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/08/03 17:36:39 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,12 @@ typedef struct s_thread
 {
 	pthread_t		*philo;
 	pthread_mutex_t	mutex;
-	int			*fork;
+	int				*fork;
 	int				nb_philo;
-
-		
+	int				time_to_die;
+	int				time_to_eat;
+	int 			time_to_sleep;
+	int				time_must_eat;
 }				t_thread;
 
 //*** MAIN.C ***
@@ -37,7 +39,8 @@ int		main(int argc, char **argv);
 //*** THREAD.C ***
 void	*routine();
 void	finish_thread(t_thread *thread);
-void	create_thread(t_thread *thread, char **argv);
+void	create_thread(t_thread *thread);
+void	create_data(t_thread *thread, char **argv);
 
 
 //*** UTILS.C ***
