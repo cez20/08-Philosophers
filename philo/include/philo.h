@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 15:54:43 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/08/11 16:34:43 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/08/11 16:57:03 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,8 @@ typedef struct s_data
 typedef	struct s_philo
 {
 	pthread_t		thread;    	//Variable necessaire pour creer thread 
-	pthread_mutex_t	mutex;	 // Valider comment je pourrais utiliser ce mutex. 
-	char			*str;
+	pthread_mutex_t	fork;	 // Lorsqu'on appelle pthread_mutex_lock(fork) on vient bloquer la fourchette.
 	int				id;		// Number that will be assigned to this philosopher 
-	int 			fork; 	//car chaque philosopher aura sa fourchette 
 }			t_philo;
 
 
