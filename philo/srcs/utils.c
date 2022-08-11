@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 15:31:44 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/08/03 16:32:40 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/08/08 11:53:10 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,14 @@ int	ft_atoi(const char *str)
 	if ((nb_neg % 2) == 1)
 		return (number * -1);
 	return (number);
+}
+
+size_t	ft_strlen(const char *s)
+{
+	size_t	i;
+
+	i = 0;
+	while (s[i] != '\0')
+		i++;
+	return (i);
 }
