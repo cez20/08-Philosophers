@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   00_main.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 15:54:30 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/08/08 18:11:55 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/08/11 15:20:36 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
  #include "philo.h"
 
 //On peut compiler le programme en mettant les flags gcc -fsanitize=thread -g threads.c && ./a.out
-
 
 
 // //Main function:
@@ -23,33 +22,14 @@
 
 int main(int argc, char **argv)
 {
-	t_thread	thread;
-	long 		time_start;
+	t_data		data;
+	//t_philo		philo;
 
 	if (argc < 5 || argc > 6)
 		error(ERR_ARGS);
-	create_data(&thread, argv);
-	create_thread(&thread);
-	finish_thread(&thread);
-	time_start = get_time_ms();
+	init_data(&data, argv);
+	create_thread(&data);
 	return (0);
-}
-
-//tv_sec est le nombre de secondes ecoules depuis l'epoch
-//tv_usec est le nombre de microsecondes ecoules depuis l'appel de la fonction gettimeoftheday
-
-long	get_time_ms(void)
-{
-	struct timeval	tmp;
-	long			ms;
-
-	ms = 0;
-	gettimeofday(&tmp, NULL);
-	ms = tmp.tv_sec;
-	printf("%ld\n", ms);
-	//ms = tmp.tv_sec * 1000;  // Faire seconde * 1000 pour obtenir millisecondes 
-	ms += tmp.tv_sec / 1000;
-	return (ms);
 }
 
 void	error(char *str)
