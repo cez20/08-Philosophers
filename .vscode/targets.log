@@ -6,8 +6,9 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # PARTICULAR PURPOSE.
 
 # This program built for i386-apple-darwin11.3.0
+ 
 
-# Make data base, printed on Thu Aug 11 11:54:34 2022
+# Make data base, printed on Tue Aug 16 16:36:09 2022
 
 # Variables
 
@@ -36,15 +37,13 @@ MAKEFILE_LIST :=
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /var/folders/zz/zyxvpxvq6csfxvn_n000c_z00032qr/T/vscode-ipc-95f207ca-be9c-4e5d-854d-435e9673a8c2.sock
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/zz/zyxvpxvq6csfxvn_n000c_z00032qr/T/vscode-ipc-01b9d9f1-2b28-430f-8bfd-b9f4b18d8755.sock
 # environment
 VSCODE_CWD = /
 # environment
-PATH = /System/Volumes/Data/sgoinfre/Perso/cemenjiv/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:/Library/Apple/usr/bin
+PATH = /usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin
 # environment
-LSCOLORS = Gxfxcxdxbxegedabagacad
-# environment
-LaunchInstanceID = D2B24400-C61B-4F27-ABA8-DAFA9F8DA7FD
+LaunchInstanceID = 076333FE-9CC4-438C-BB59-56AEF57589E9
 # environment
 VSCODE_LOG_STACK = false
 # environment
@@ -52,11 +51,9 @@ ELECTRON_RUN_AS_NODE = 1
 # default
 .FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.iD71MvTdI9/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.4RfHr7DyQT/Listeners
 # automatic
 %F = $(notdir $%)
-# environment
-HOMEBREW_TEMP = /tmp/cemenjiv/Homebrew/Temp
 # environment
 VSCODE_PIPE_LOGGING = true
 # environment
@@ -74,9 +71,7 @@ VSCODE_CODE_CACHE_PATH = /Users/cemenjiv/Library/Application Support/Code/Cached
 # environment
 LOGNAME = cemenjiv
 # environment
-APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
-# environment
-ZSH = /Users/cemenjiv/.oh-my-zsh
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
 # environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # automatic
@@ -88,8 +83,6 @@ MAKE = $(MAKE_COMMAND)
 # default
 MAKECMDGOALS := all
 # environment
-HOMEBREW_CACHE = /tmp/cemenjiv/Homebrew/Caches
-# environment
 SHLVL = 1
 # default
 MAKE_VERSION := 3.81
@@ -97,8 +90,6 @@ MAKE_VERSION := 3.81
 USER = cemenjiv
 # makefile
 .DEFAULT_GOAL := 
-# environment
-LESS = -R
 # automatic
 %D = $(patsubst %/,%,$(dir $%))
 # default
@@ -118,7 +109,7 @@ MFLAGS = -Rrqp
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
-XPC_SERVICE_NAME = com.apple.xpc.launchd.oneshot.0x10000002.Electron
+XPC_SERVICE_NAME = com.apple.xpc.launchd.oneshot.0x10000013.Electron
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
 # automatic
@@ -132,11 +123,9 @@ MAKEFILES :=
 # automatic
 <F = $(notdir $<)
 # environment
-PAGER = less
-# environment
 LC_ALL = C
 # environment
-SECURITYSESSIONID = 186a7
+SECURITYSESSIONID = 18860
 # automatic
 ^F = $(notdir $^)
 # default
@@ -148,9 +137,9 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 57003
+VSCODE_PID = 50890
 # variable set hash-table stats:
-# Load=69/1024=7%, Rehash=0, Collisions=1/90=1%
+# Load=63/1024=6%, Rehash=0, Collisions=1/84=1%
 
 # Pattern-specific Variable Values
 
@@ -158,9 +147,9 @@ VSCODE_PID = 57003
 
 # Directories
 
-# . (device 16777225, inode 1182233): 7 files, no impossibilities.
+# . (device 16777225, inode 1182233): 8 files, no impossibilities.
 
-# 7 files, no impossibilities in 1 directories.
+# 8 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -201,6 +190,9 @@ makefile:
 #  File has been updated.
 #  Failed to be updated.
 # variable set hash-table stats:
+ 
+make: *** No rule to make target `all'.  Stop.
+
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 # Not a target:
@@ -232,8 +224,6 @@ GNUmakefile:
 # strcache size: total = 0 / max = 0 / min = 4096 / avg = 0
 # strcache free: total = 0 / max = 0 / min = 4096 / avg = 0
 
-# Finished Make data base on Thu Aug 11 11:54:34 2022
+# Finished Make data base on Tue Aug 16 16:36:09 2022
 
  
-make: *** No rule to make target `all'.  Stop.
-

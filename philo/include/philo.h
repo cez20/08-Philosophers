@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 15:54:43 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/08/11 16:57:03 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/08/16 18:02:35 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,53 +27,50 @@ typedef struct s_philo	t_philo; // This allow to declare struct in s_data, becau
 
 typedef struct s_data
 {
-	int 		nb_philo;
-	int 		time_to_die;
-	int 		time_to_eat;
-	int 		time_to_sleep;
-	int			time_must_eat;
-	long long	timestamp;
-	t_philo		**philo;
+	int 			nb_philo;
+	int 			time_to_die; // argv[2]
+	int 			time_to_eat; // argv[3]
+	int 			time_to_sleep; // argv[4]
+	int				time_must_eat; // argv[5]
+	int				timestamp;  //timestamp at the beginning of simulation
+	t_philo			**philo;
+	pthread_mutex_t message;
 }			t_data;
 
 typedef	struct s_philo
 {
 	pthread_t		thread;    	//Variable necessaire pour creer thread 
 	pthread_mutex_t	fork;	 // Lorsqu'on appelle pthread_mutex_lock(fork) on vient bloquer la fourchette.
-	int				id;		// Number that will be assigned to this philosopher 
+	int				id;	// Number that will be assigned to this philosopher 
+	int				nb_time_eat; // Numqber of time that philo eat. This number increase each time he eats.
+	int				time_last_meal; // Each philo has a different last meal time.
 }			t_philo;
 
 
 //*** 00_MAIN.C ***
-int		main(int argc, char **argv);
-void	error(char *str);
+int			main(int argc, char **argv);
 
-//*** 01_DATA.C ***
-int		valid_int(char *argv);
-void	init_data(t_data *data, char **argv);
+//*** 01_INIT_DATA.C ***
+int			valid_int(char *argv); 
+void		init_data(t_data *data, char **argv);
+void		malloc_philo(t_data *p);
 
-//*** 02_THREAD.C ***
-void	create_thread(t_data *p);
+//*** 02_INIT_TIME.C ***
+void		init_time(t_data *data);
+long long 	get_time_in_ms();
 
+//*** 03_INIT_SIMULATION.C ***
+void		init_simulation(t_data *p);
+void		malloc_philo(t_data *p);
+void		*start(void *p);
 
-//*** UTILS.C ***		
-int		ft_isdigit(int c);
-int		ft_atoi(const char *str);
-size_t	ft_strlen(const char *s);
+//*** 05_UTILS.C *** TO BE CHANGED FOR RIGHT NUMBER AT THE END 
+int			ft_isdigit(int c);
+int			ft_atoi(const char *str);
+size_t		ft_strlen(const char *s);
+void		error(char *str);
 
+//*** TEST.C ***
+void	print_initial_data(t_data *p);
 
 #endif
-
-
-
-// typedef struct s_philo
-// {
-// 	pthread_t		*philo;
-// 	pthread_mutex_t	mutex;
-// 	int				*fork;
-// 	int				nb_philo;
-// 	int				time_to_die;
-// 	int				time_to_eat;
-// 	int 			time_to_sleep;
-// 	int				time_must_eat;
-// }				t_philo;

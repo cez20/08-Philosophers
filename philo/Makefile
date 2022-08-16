@@ -6,13 +6,15 @@
 #    By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/20 15:53:41 by cemenjiv          #+#    #+#              #
-#    Updated: 2022/08/08 12:29:45 by cemenjiv         ###   ########.fr        #
+#    Updated: 2022/08/16 19:09:58 by cemenjiv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			= philo 
 
 SRCS			= $(wildcard srcs/*.c)
+
+OBJS_DIR		= objs/
 
 HEADER			= -Iinclude/
 				  	  
@@ -23,7 +25,7 @@ PTHREAD			= -pthread
 OBJS			= $(SRCS:.c=.o) #Declaration OBJS (objets). Tous les fichiers terminant par le suffixe .c vont devenir .o
 
 CC				= gcc  #name of C compiler
-CFLAGS			= -Wall -Wextra -Werror -g  #nom des differents flags a utiliser 
+CFLAGS			= -Wall -Wextra -Werror -g
 RM				= rm -f  #shortcut Rm fait ce que fait normalement rm -f 
 
 %.o: %.c
@@ -51,9 +53,7 @@ fclean:			clean
 				
 re:				fclean all
 				
-
 .PHONY:			all clean fclean re
-
 
 norm:
 				@norminette $(HEADER_PATH)
@@ -64,3 +64,6 @@ push:
 				@read -p "name of commit: " INP \
 				&& git commit -m "$${INP}"
 				@git push
+
+warning:		CFLAGS += -w
+warning:		$(NAME)
