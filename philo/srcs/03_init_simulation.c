@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 15:59:40 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/08/17 09:38:04 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/08/17 15:11:33 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@ void	init_simulation(t_data *p)
 	i = 0;
 	while (i < p->nb_philo)
 	{	
+		p->philo[i]->next_thread = p->philo[i + 1];
+		if (i == (p->nb_philo - 1)) // Pour une raison inconnue, cette condition n'est pas obligatoire
+			p->philo[i]->next_thread = p->philo[0];
 		pthread_create(&p->philo[i]->thread, NULL, start, p->philo[i]);
 		i++; 
 	}
@@ -40,10 +43,11 @@ void	*start(void *philo)
 {
 	t_philo		*p;
 
+
 	p = (t_philo *)philo;
 	p->time_last_meal = p->data->timestamp;
-	if ((p->id % 2) == 0)
-		usleep(10000);
+	if ((p->index % 2) == 0)
+		usleep(15000);
 	while(1)
 	{
 		philo_status(p);
@@ -56,37 +60,44 @@ void	*start(void *philo)
 void	philo_status(t_philo *p)
 {
 	init_time(p->data);
-	printf("%d\n", p->data->timestamp);
 	if (p->status == THINK)
 		grab_first_fork(p);
-	//if (p->status == FIRST_FORK)
-		//grab_second_fork
-
-
-	
+	else if (p->status == FIRST_FORK)
+		grab_second_fork(p);
+	else if (p->status == SECOND_FORK)
+		is_eating(p);
 }
 
 
-// Est-ce que je dois mettre a jour mon timestamp au debut de cette fonction 
+//Est-ce que je dois mettre a jour mon timestamp au debut de cette fonction 
 void	grab_first_fork(t_philo *p)
 {
-	long long	time_start;
-	
-	time_start = get_time_in_ms();
 	p->time_last_meal = p->data->timestamp;
 	pthread_mutex_lock(&p->fork);
 	printf("%d %d has taken a fork\n", p->time_last_meal, p->id);
+	usleep(15000); // A valider si c'est correct
 	p->status = FIRST_FORK;
 }
 
-// void		grab_second_fork(t_philo *p)
-// {
-	
+void	grab_second_fork(t_philo *p)
+{
+	init_time(p->data);
+	p->time_last_meal = p->data->timestamp;
+	pthread_mutex_lock(&p->next_thread->fork);
+	printf("%d %d has taken a fork\n", p->time_last_meal, p->id);
+	usleep(15000); // A valider si c'est correct.  
+	p->status = SECOND_FORK;
+}
 
-
-
-
-// }
+void	is_eating(t_philo *p)
+{
+	pthread_mutex_lock(&p->data->message);
+	printf("%d %d is eating\n", p->time_last_meal, p->id);
+	pthread_mutex_unlock(&p->data->message);
+	usleep(p->data->time_to_eat * 1000);
+	pthread_mutex_unlock(&p->fork);
+	pthread_mutex_unlock(&p->next_thread->fork);
+}
 
 // Fonction test pour un seul philosophers 
 // void	one_philo()

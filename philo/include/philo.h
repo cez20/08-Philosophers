@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 15:54:43 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/08/17 09:21:15 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/08/17 15:04:33 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct s_data
 	int 			time_to_sleep; // argv[4]
 	int				time_must_eat; // argv[5]
 	int				timestamp;  //timestamp at the beginning of simulation
+	int				next_philo;
 	t_philo			**philo;
 	pthread_mutex_t message;
 }			t_data;
@@ -47,10 +48,12 @@ typedef	struct s_philo
 {
 	pthread_t		thread;    	//Variable necessaire pour creer thread 
 	pthread_mutex_t	fork;	 // Lorsqu'on appelle pthread_mutex_lock(fork) on vient bloquer la fourchette.
-	int				id;	// Number that will be assigned to this philosopher 
+	int				index;	// Number that will be assigned to this philosopher 
+	int				id;
 	int				nb_time_eat; // Numqber of time that philo eat. This number increase each time he eats.
 	int				time_last_meal; // Each philo has a different last meal time.
 	int				status;
+	t_philo			*next_thread;
 	t_data			*data;
 }			t_philo;
 
@@ -72,6 +75,8 @@ void		init_simulation(t_data *p);
 void		*start(void *p);
 void		philo_status(t_philo *p);
 void		grab_first_fork(t_philo *p);
+void		grab_second_fork(t_philo *p);
+void		is_eating(t_philo *p);
 
 //*** 05_UTILS.C *** TO BE CHANGED FOR RIGHT NUMBER AT THE END 
 int			ft_isdigit(int c);
