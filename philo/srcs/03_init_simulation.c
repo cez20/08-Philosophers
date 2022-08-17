@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 15:59:40 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/08/16 19:26:58 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/08/17 09:38:04 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,12 @@ memory */
 
 void	init_simulation(t_data *p)
 {
-	int i;
+	int 		i;
 
 	i = 0;
 	while (i < p->nb_philo)
 	{	
-		pthread_create(&p->philo[i]->thread, NULL, start, (void *)p->philo[i]);
-		//printf("Creation du thread :[%ld]\n", p->philo[i]->thread);
+		pthread_create(&p->philo[i]->thread, NULL, start, p->philo[i]);
 		i++; 
 	}
 	i = 0;
@@ -37,19 +36,82 @@ void	init_simulation(t_data *p)
 }
 
 /*This function is the one that initiates all threads and that is called in pthread_create*/
-
 void	*start(void *philo)
 {
 	t_philo		*p;
-	pthread_t	thread;
 
-	thread = pthread_self();
 	p = (t_philo *)philo;
-	pthread_mutex_lock(&p->fork);
-		printf("Philosophe %d a pris sa fourchette\n", p->id);
-	pthread_mutex_unlock(&p->fork);
-	pthread_mutex_destroy(&p->fork);
+	p->time_last_meal = p->data->timestamp;
+	if ((p->id % 2) == 0)
+		usleep(10000);
+	while(1)
+	{
+		philo_status(p);
+		if (p->status == DIED)
+			break;
+	}	
 	return (NULL);
 }
 
+void	philo_status(t_philo *p)
+{
+	init_time(p->data);
+	printf("%d\n", p->data->timestamp);
+	if (p->status == THINK)
+		grab_first_fork(p);
+	//if (p->status == FIRST_FORK)
+		//grab_second_fork
 
+
+	
+}
+
+
+// Est-ce que je dois mettre a jour mon timestamp au debut de cette fonction 
+void	grab_first_fork(t_philo *p)
+{
+	long long	time_start;
+	
+	time_start = get_time_in_ms();
+	p->time_last_meal = p->data->timestamp;
+	pthread_mutex_lock(&p->fork);
+	printf("%d %d has taken a fork\n", p->time_last_meal, p->id);
+	p->status = FIRST_FORK;
+}
+
+// void		grab_second_fork(t_philo *p)
+// {
+	
+
+
+
+
+// }
+
+// Fonction test pour un seul philosophers 
+// void	one_philo()
+// {
+// 	long long	timestamp_start;
+// 	int			new_timestamp;
+	
+// 	timestamp_start = get_time_in_ms();
+// 	if (p->nb_philo == 1)
+// 	{
+// 		pthread_mutex_lock(&p->philo[i]->fork);
+// 		p->philo[i]->time_last_meal = p->timestamp;
+// 		printf("%d %d has taken a fork\n", p->philo[i]->time_last_meal, p->philo[i]->id);
+// 		while (1)
+// 		{
+// 			if (p->philo[i]->status == THINK)
+// 			{
+// 				new_timestamp = get_time_in_ms() - timestamp_start;
+// 				if (new_timestamp > p->time_to_die)
+// 					break;
+// 			}
+			
+// 		}
+// 		pthread_mutex_unlock(&p->philo[i]->fork);
+// 		printf("%d %d died\n", new_timestamp, p->philo[i]->id);
+// 		exit(EXIT_FAILURE);
+// 	}
+// }

@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 15:54:43 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/08/16 18:02:35 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/08/17 09:21:15 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,12 @@
 #define ERR_ARGS "Error! Wrong number of arguments!\n"
 #define	ERR_DATA "Error! The arguments are either negative numbers, float, letters or other!\n"
 #define ERR_PHILO "Error! There are no philosophers to do the simulation\n"
+#define	DIED 0
+#define EAT  1
+#define	SLEEP 2
+#define THINK 3
+#define	FIRST_FORK 4
+#define SECOND_FORK 5
 
 typedef struct s_philo	t_philo; // This allow to declare struct in s_data, because if not put here, it doesnt know what t_philo is
 
@@ -44,6 +50,8 @@ typedef	struct s_philo
 	int				id;	// Number that will be assigned to this philosopher 
 	int				nb_time_eat; // Numqber of time that philo eat. This number increase each time he eats.
 	int				time_last_meal; // Each philo has a different last meal time.
+	int				status;
+	t_data			*data;
 }			t_philo;
 
 
@@ -61,8 +69,9 @@ long long 	get_time_in_ms();
 
 //*** 03_INIT_SIMULATION.C ***
 void		init_simulation(t_data *p);
-void		malloc_philo(t_data *p);
 void		*start(void *p);
+void		philo_status(t_philo *p);
+void		grab_first_fork(t_philo *p);
 
 //*** 05_UTILS.C *** TO BE CHANGED FOR RIGHT NUMBER AT THE END 
 int			ft_isdigit(int c);

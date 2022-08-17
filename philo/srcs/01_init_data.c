@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 15:03:38 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/08/16 17:40:47 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/08/17 08:07:19 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ void	malloc_philo(t_data *p)
 		p->philo[i]->id = i + 1; 
 		p->philo[i]->nb_time_eat = 0;
 		p->philo[i]->time_last_meal = 0;
+		p->philo[i]->status = THINK;
+		p->philo[i]->data = malloc(sizeof(t_data));
 		i++; 
 	}
 }

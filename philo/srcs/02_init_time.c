@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 15:17:40 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/08/16 17:25:17 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/08/17 08:13:45 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,11 @@
 
 void	init_time(t_data *data)
 {
-	long long	timestamp_start;
-
+	long long timestamp_start;
+	
 	timestamp_start = get_time_in_ms();
 	data->timestamp = get_time_in_ms() - timestamp_start;
 	usleep(100); // Pourquoi mettre cela ??
-	//printf("%d\n", data->timestamp); // imprime la difference de temps en ms. 
 }
 
 long long get_time_in_ms()
