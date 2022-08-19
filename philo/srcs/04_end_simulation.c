@@ -1,33 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   02_init_time.c                                     :+:      :+:    :+:   */
+/*   04_end_simulation.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/16 15:17:40 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/08/17 08:13:45 by cemenjiv         ###   ########.fr       */
+/*   Created: 2022/08/18 12:38:01 by cemenjiv          #+#    #+#             */
+/*   Updated: 2022/08/18 12:39:16 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	init_time(t_data *data)
+void    end_simulation(t_data *p)
 {
-	long long timestamp_start;
-	
-	timestamp_start = get_time_in_ms();
-	data->timestamp = get_time_in_ms() - timestamp_start;
-	usleep(100); // Pourquoi mettre cela ??
+    int i;
+    
+    i = 0;
+    while (i < p->nb_philo) // Loop pour attendre chacun des threads.
+    {
+        pthread_join(p->philo[i]->thread, NULL);
+        i++;
+    }
 }
-
-long long get_time_in_ms()
-{
-	struct timeval		time;
-	long long			timestamp;
-
-	gettimeofday(&time, NULL);
-	timestamp = (time.tv_sec * 1000) + (time.tv_usec / 1000);
-	return (timestamp);
-}
-

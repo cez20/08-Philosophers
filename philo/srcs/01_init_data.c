@@ -6,12 +6,11 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 15:03:38 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/08/17 14:48:23 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/08/18 18:13:25 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
 
 /*This function validates that each argv is correct, by calling
 the function valid int. It also malloc enough memory for each philo struct*/
@@ -74,12 +73,13 @@ void	malloc_philo(t_data *p)
 		if (!p->philo[i])
 			return ;
 		pthread_mutex_init(&p->philo[i]->fork, NULL);
+		pthread_mutex_init(&p->message, NULL);
 		p->philo[i]->index = i;
 		p->philo[i]->id = i + 1;
 		p->philo[i]->nb_time_eat = 0;
-		p->philo[i]->time_last_meal = 0;
-		p->philo[i]->status = THINK;
-		p->philo[i]->data = malloc(sizeof(t_data));
+		p->philo[i]->status = EATING;
+		//p->philo[i]->data = malloc(sizeof(t_data));
+		p->philo[i]->data = p;
 		p->philo[i]->next_thread = malloc(sizeof(t_philo));
 		i++; 
 	}

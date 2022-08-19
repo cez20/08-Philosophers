@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 15:31:44 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/08/16 15:18:05 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/08/18 15:35:28 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,14 @@ void	error(char *str)
 {
 	write(2, str, ft_strlen(str));
 	exit(EXIT_FAILURE);
+}
+
+long long timestamp_in_ms()
+{
+	struct timeval		time;
+	long long			timestamp;
+
+	gettimeofday(&time, NULL);
+	timestamp = (time.tv_sec * 1000) + (time.tv_usec / 1000);
+	return (timestamp);
 }
