@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 15:54:43 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/08/18 17:16:09 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/08/19 14:48:03 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 
 typedef struct s_philo	t_philo; // This allow to declare struct in s_data, because if not put here, it doesnt know what t_philo is
 
-typedef struct s_data
+typedef struct s_global
 {
 	int 			nb_philo;
 	int 			time_to_die; // argv[2]
@@ -43,42 +43,43 @@ typedef struct s_data
 	int 			time_to_sleep; // argv[4]
 	int				time_must_eat; // argv[5]
 	long long		timestamp_start;  //timestamp at the beginning of simulation
-	t_philo			**philo;
+	pthread_mutex_t	*fork;
 	pthread_mutex_t message;
-}			t_data;
+	t_philo			**philo;
+}			t_global;
 
 typedef	struct s_philo
 {
-	pthread_t		thread;    	//Variable necessaire pour creer thread 
-	pthread_mutex_t	fork;
-	int				index;	// Number that will be assigned to this philosopher 
-	int				id;
-	int				nb_time_eat; // Numqber of time that philo eat. This number increase each time he eats.
+	pthread_t		thread;    	//Variable necessary to create thread
+	int				status;     //Variable that alternates between EAT, SLEEP, THINK, DIED 
+	int				id;         //Id of each philosopher that will appear on 
+	int				own_fork;  //Number that correspond to philo own fork 
+	int				right_fork; //Number that belongs to philo on his right fork. 
+	int				nb_time_ate; // number of time each philo eat
 	long long		time_last_meal; // Each philo has a different last meal time.
-	int				status;
-	t_philo			*next_thread;
-	t_data			*data;
+	t_global		*global;
 }			t_philo;
 
 
 //*** 00_MAIN.C ***
 int			main(int argc, char **argv);
 
-//*** 01_INIT_DATA.C ***
-int			valid_int(char *argv); 
-void		init_data(t_data *data, char **argv);
-void		malloc_philo(t_data *p);
+//*** 01_INIT_VARIABLES.C ***
+void		init_variables(t_global *global, char **argv);
+void		init_global_variables(t_global *global, char **argv);
+void		init_global_forks(t_global *global);
+void		init_each_philo(t_global *global);
 
-//*** 02_INIT_SIMULATION.C ***
-void		init_simulation(t_data *p);
-void		*start(void *p);
-void		philo_status(t_philo *p);
-void		is_eating(t_philo *p);
-void		is_thinking(t_philo * p);
-void		print_message(t_philo *p, char *str);
+// //*** 02_START_SIMULATION.C ***
+// void		start_simulation(t_global *p);
+// void		*start(void *p);
+// void		philo_status(t_philo *p);
+// void		is_eating(t_philo *p);
+// void		is_thinking(t_philo * p);
+// void		print_message(t_philo *p, char *str);
 
-//*** 03_END_SIMULATION.C ***
-void    	end_simulation(t_data *p);
+// //*** 03_END_SIMULATION.C ***
+// void    	end_simulation(t_global *p);
 
 //*** 05_UTILS.C *** TO BE CHANGED FOR RIGHT NUMBER AT THE END 
 int			ft_isdigit(int c);
@@ -88,6 +89,6 @@ void		error(char *str);
 long long 	timestamp_in_ms();
 
 //*** TEST.C ***
-void		print_initial_data(t_data *p);
+void		print_initial_values(t_global *p);
 
 #endif

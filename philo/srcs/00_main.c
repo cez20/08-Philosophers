@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 15:54:30 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/08/18 17:13:00 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/08/19 14:06:34 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,13 @@ finish_thread waits for each thread to finish */
 
 int main(int argc, char **argv)
 {
-	t_data		data;
+	t_global	global;
 
 	if (argc < 5 || argc > 6)
 		error(ERR_ARGS);
-	init_data(&data, argv);
-	init_simulation(&data);
-	end_simulation(&data);
+	init_variables(&global, argv);
+	//init_mutex
+	//init_simulation(&global);
+	//end_simulation(&global);
 	return (0);
 }
