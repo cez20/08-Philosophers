@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 12:58:24 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/08/19 14:38:00 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/08/19 15:49:58 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ void	print_initial_values(t_global *g)
 	{
 		printf("The status of philosopher is [%d].\n", g->philo[i]->status);
 		printf("The index %d philosopher id is [%d].\n", i, g->philo[i]->id);
-		printf("The philosopher's OWN fork number is [%d].\n", g->philo[i]->own_fork);
-		printf("The philosopher's RIGHT fork number is [%d].\n", g->philo[i]->right_fork);
 		printf("The philosopher has eaten [%d] times.\n", g->philo[i]->nb_time_ate);
 		printf("The philosophers last meal is at [%lld] (in milliseconds) from start.\n", g->philo[i]->time_last_meal);
 		printf("\n");

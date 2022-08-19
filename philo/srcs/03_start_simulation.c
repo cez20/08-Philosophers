@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   02_start_simulation.c                              :+:      :+:    :+:   */
+/*   03_start_simulation.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 15:59:40 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/08/19 14:27:08 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/08/19 17:01:00 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,20 @@ to another structure that contains all the information regarding each philosophe
 the double pointers so that it can accept all philo struct. Then, after we malloc each subelements so that it has enough
 memory */
 
-// void	init_simulation(t_global *p)
-// {
-// 	int 		i;
+void	init_simulation(t_global *g)
+{
+	int 		i;
 
-// 	i = 0;
-// 	p->timestamp_start = timestamp_in_ms();
-// 	while (i < p->nb_philo)
-// 	{	
-// 		if (i == (p->nb_philo - 1)) // Pour une raison inconnue, cette condition n'est pas obligatoire
-// 			p->philo[i]->next_thread = p->philo[0]; // Pour une raison inconnue, non-necessaire
-// 		p->philo[i]->next_thread = p->philo[i + 1];
-// 		pthread_create(&p->philo[i]->thread, NULL, start, p->philo[i]);
-// 		p->philo[i]->time_last_meal = timestamp_in_ms();
-// 		i++; 
-// 	}
-// }
+	i = 0;
+	g->timestamp_start = timestamp_in_ms();
+	while (i < g->nb_philo)
+	{	
+		if (pthread_create(&g->philo[i]->thread, NULL, start, g->philo[i]) ) != 0;
+			return ;
+		g->philo[i]->time_last_meal = timestamp_in_ms(); // Pourquoi le time_last_meal irait ici?
+		i++; 
+	}
+}
 
 // /*This function is the one that initiates all threads and that is called in pthread_create*/
 // void	*start(void *philo)

@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 15:54:30 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/08/19 14:06:34 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/08/19 16:42:02 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,9 @@ int main(int argc, char **argv)
 	if (argc < 5 || argc > 6)
 		error(ERR_ARGS);
 	init_variables(&global, argv);
-	//init_mutex
+	init_mutex(&global);
 	//init_simulation(&global);
 	//end_simulation(&global);
+	//free_struct(&global);
 	return (0);
 }

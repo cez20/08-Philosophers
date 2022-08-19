@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 15:03:38 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/08/19 14:51:03 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/08/19 16:43:00 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,31 +32,13 @@ void	init_each_philo(t_global *global)
 			return ;
 		global->philo[i]->status = EATING;
 		global->philo[i]->id = (i + 1);
-		global->philo[i]->own_fork = i;
 		global->philo[i]->nb_time_ate = 0;
 		global->philo[i]->time_last_meal = 0;
-		global->philo[i]->global = global;
 		if (i == (global->nb_philo - 1))
-			global->philo[i]->right_fork = 0;
+			global->philo[i]->right_fork = &(global->philo[0]->fork);
 		else
-			global->philo[i]->right_fork = (i + 1);
-		i++;
-	}
-}
-
-/* This function creates an "array" of forks of type pthread_mutex_t. For example,
-   if we have 30 philosophers, it creates an array of 30 forks of type pthread_mutex_t */
-
-void	init_global_forks(t_global *global)
-{
-	int	i;
-
-	i = 0;
-	while (i < global->nb_philo)
-	{	
-		global->fork = malloc(global->nb_philo * sizeof(global->fork));
-		if (!global->fork)
-			return ;
+			global->philo[i]->right_fork = &(global->philo[i + 1]->fork);
+		global->philo[i]->global = global;
 		i++;
 	}
 }
@@ -108,7 +90,6 @@ void	init_global_variables(t_global *global, char **argv)
 void	init_variables(t_global *global, char **argv)
 {
 	init_global_variables(global, argv);
-	init_global_forks(global);
 	init_each_philo(global);
 	print_initial_values(global);
 }

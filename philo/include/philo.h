@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 15:54:43 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/08/19 14:48:03 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/08/19 16:41:11 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@
 #define	SLEEPING 2
 #define THINKING 3
 
-
 typedef struct s_philo	t_philo; // This allow to declare struct in s_data, because if not put here, it doesnt know what t_philo is
 
 typedef struct s_global
@@ -43,20 +42,19 @@ typedef struct s_global
 	int 			time_to_sleep; // argv[4]
 	int				time_must_eat; // argv[5]
 	long long		timestamp_start;  //timestamp at the beginning of simulation
-	pthread_mutex_t	*fork;
 	pthread_mutex_t message;
 	t_philo			**philo;
 }			t_global;
 
 typedef	struct s_philo
 {
-	pthread_t		thread;    	//Variable necessary to create thread
 	int				status;     //Variable that alternates between EAT, SLEEP, THINK, DIED 
 	int				id;         //Id of each philosopher that will appear on 
-	int				own_fork;  //Number that correspond to philo own fork 
-	int				right_fork; //Number that belongs to philo on his right fork. 
 	int				nb_time_ate; // number of time each philo eat
 	long long		time_last_meal; // Each philo has a different last meal time.
+	pthread_t		thread;    	//Variable necessary to create thread
+	pthread_mutex_t	fork;
+	pthread_mutex_t *right_fork;
 	t_global		*global;
 }			t_philo;
 
@@ -69,6 +67,11 @@ void		init_variables(t_global *global, char **argv);
 void		init_global_variables(t_global *global, char **argv);
 void		init_global_forks(t_global *global);
 void		init_each_philo(t_global *global);
+void		free_struct(t_global *global);
+
+//*** 02_INIT_MUTEX.C ***
+void		init_mutex(t_global *global);
+//void		destroy_mutex(t_global *global);
 
 // //*** 02_START_SIMULATION.C ***
 // void		start_simulation(t_global *p);
