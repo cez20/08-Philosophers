@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 15:02:49 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/08/19 16:48:58 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/08/20 12:57:56 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,17 @@ void	init_mutex(t_global *global)
 /* This function destroys the mutex, that were initialized in init_mutex,
    in order to leave the program in a clean way. */
 
-// void	destroy_mutex(t_global *global)
-// {
-// 	int	i;
+void	destroy_mutex(t_global *global)
+{
+	int	i;
 
-// 	i = 0;
-// 	while (i < global->nb_philo)
-// 	{
-// 		if (pthread_mutex_destroy(&global->philo[i]->fork) != 0)
-// 			return;
-// 		i++;
-// 	}
-// 	if (pthread_mutex_destroy(&global->message) != 0)
-// 		return ;
-// }
+	i = 0;
+	while (i < global->nb_philo)
+	{
+		if (pthread_mutex_destroy(&global->philo[i]->fork) != 0)
+			return;
+		i++;
+	}
+	if (pthread_mutex_destroy(&global->message) != 0)
+		return ;
+}

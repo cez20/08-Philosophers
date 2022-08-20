@@ -6,11 +6,28 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 15:03:38 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/08/19 16:43:00 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/08/20 15:24:57 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	philo_right_fork(t_global *global)
+{
+	int i;
+
+	i = 0;
+	while(i < global->nb_philo)
+	{
+		if (global->nb_philo == 1)
+			global->philo[i]->right_fork = NULL;
+		else if (i == (global->nb_philo - 1))
+			global->philo[i]->right_fork = &(global->philo[0]->fork);
+		else
+			global->philo[i]->right_fork = &(global->philo[i + 1]->fork);
+		i++;
+	}
+}
 
 /* This function mallocs enought memory for a 2d array. First malloc is to
    malloc an array that will contain "global->nb_philo" pointers of type t_philo. 
@@ -34,10 +51,6 @@ void	init_each_philo(t_global *global)
 		global->philo[i]->id = (i + 1);
 		global->philo[i]->nb_time_ate = 0;
 		global->philo[i]->time_last_meal = 0;
-		if (i == (global->nb_philo - 1))
-			global->philo[i]->right_fork = &(global->philo[0]->fork);
-		else
-			global->philo[i]->right_fork = &(global->philo[i + 1]->fork);
 		global->philo[i]->global = global;
 		i++;
 	}
@@ -80,6 +93,7 @@ void	init_global_variables(t_global *global, char **argv)
 		global->time_must_eat = -1;
 	if (global->nb_philo == 0)
 		error(ERR_PHILO);
+	global->status = EATING;
 }
 
 /*This function wraps up all functions that initialize the data:
@@ -91,5 +105,6 @@ void	init_variables(t_global *global, char **argv)
 {
 	init_global_variables(global, argv);
 	init_each_philo(global);
-	print_initial_values(global);
+	philo_right_fork(global);
+	//print_initial_values(global);
 }
