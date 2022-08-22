@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 15:03:38 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/08/20 15:24:57 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/08/22 06:24:15 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	init_each_philo(t_global *global)
 		global->philo[i] = malloc(sizeof(t_philo));
 		if (!global->philo[i])
 			return ;
-		global->philo[i]->status = EATING;
+		global->philo[i]->status = EAT;
 		global->philo[i]->id = (i + 1);
 		global->philo[i]->nb_time_ate = 0;
 		global->philo[i]->time_last_meal = 0;
@@ -93,7 +93,7 @@ void	init_global_variables(t_global *global, char **argv)
 		global->time_must_eat = -1;
 	if (global->nb_philo == 0)
 		error(ERR_PHILO);
-	global->status = EATING;
+	global->status = EAT;
 }
 
 /*This function wraps up all functions that initialize the data:

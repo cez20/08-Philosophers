@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 15:54:43 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/08/20 15:22:35 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/08/22 10:52:02 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,27 +22,23 @@
 #define ERR_ARGS "Error! Wrong number of arguments!\n"
 #define	ERR_DATA "Error! The arguments are either negative numbers, float, letters or other!\n"
 #define ERR_PHILO "Error! There are no philosophers to do the simulation\n"
-#define FORK      "has taken a fork\n"
-#define EAT       "is eating\n"
-#define SLEEP     "is sleeping\n"
-#define	THINK	  "is thinking\n"
-#define	DIE       "died\n"
-#define	DYING 0
-#define EATING 1
-#define	SLEEPING 2
-#define THINKING 3
+#define	DIED 0
+#define EAT 1
+#define	SLEEP 2
+#define THINK 3
 
 typedef struct s_philo	t_philo; // This allow to declare struct in s_data, because if not put here, it doesnt know what t_philo is
 
 typedef struct s_global
 {
 	int 			nb_philo;
-	int 			time_to_die; // argv[2]
-	int 			time_to_eat; // argv[3]
-	int 			time_to_sleep; // argv[4]
-	int				time_must_eat; // argv[5]
+	int 			time_to_die; 
+	int 			time_to_eat; 
+	int 			time_to_sleep; 
+	int				time_must_eat; 
 	int				status;
 	long long		timestamp_start;  //timestamp at the beginning of simulation
+	long long		timestamp_died;
 	pthread_mutex_t message;
 	t_philo			**philo;
 }			t_global;
@@ -93,8 +89,8 @@ void		error(char *str);
 long long 	timestamp_in_ms();
 
 //*** 06_UTILS1.C *** TO BE CHANGED FOR RIGHT NUMBER AT THE END
-void	free_struct(t_global *global);
-
+void		sequential_usleep(long long total_time_for_action, t_global *g);
+void		free_struct(t_global *global);
 
 //*** TEST.C ***
 void		print_initial_values(t_global *p);
