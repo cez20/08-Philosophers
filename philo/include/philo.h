@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 15:54:43 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/08/22 10:52:02 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/08/24 12:49:49 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ typedef struct s_global
 	int				time_must_eat; 
 	int				status;
 	long long		timestamp_start;  //timestamp at the beginning of simulation
-	long long		timestamp_died;
 	pthread_mutex_t message;
+	pthread_t		checker;
 	t_philo			**philo;
 }			t_global;
 
@@ -58,6 +58,7 @@ typedef	struct s_philo
 
 //*** 00_MAIN.C ***
 int			main(int argc, char **argv);
+void		*checker_loop(void *global);
 
 //*** 01_INIT_VARIABLES.C ***
 void		init_variables(t_global *global, char **argv);

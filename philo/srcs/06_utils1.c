@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 16:43:04 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/08/22 07:15:41 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/08/24 15:46:52 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	sequential_usleep(long long total_time_for_action, t_global *g)
 	while (g->status != DIED)
 	{
 		current_updated_time = timestamp_in_ms();
-		if ((current_updated_time - start_time) > total_time_for_action)
+		if ((current_updated_time - start_time) >= total_time_for_action) // Pourquoi le simple fait de mettre egal a cote de > change les secondes. 
 			break ;
 		usleep(50);
 	}
