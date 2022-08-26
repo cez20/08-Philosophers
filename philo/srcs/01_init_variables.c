@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 15:03:38 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/08/24 16:02:21 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/08/26 14:29:11 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	philo_right_fork(t_global *global)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(i < global->nb_philo)
+	while (i < global->nb_philo)
 	{
 		if (global->nb_philo == 1)
 			global->philo[i]->right_fork = NULL;
@@ -29,10 +29,12 @@ void	philo_right_fork(t_global *global)
 	}
 }
 
-/* This function mallocs enought memory for a 2d array. First malloc is to
-   malloc an array that will contain "global->nb_philo" pointers of type t_philo. 
-   Second malloc, gives enough memory to contain all variables that can be found
-   inside the t_philo struct and assign a value to each of its variable. */
+/* This function mallocs enought memory for a 2d array. 
+   First malloc is to malloc an array that will contain 
+   "global->nb_philo" pointers of type t_philo. Second malloc, 
+   gives enough memory to contain all variables that can be found
+   inside the t_philo struct and assign a value to each 
+   of its variable. */
 
 void	init_each_philo(t_global *global)
 {
@@ -79,8 +81,8 @@ int	valid_int(char *argv)
 	return (nb);
 }
 
-/* This function initializes all the basic variables inside the t_global struct */
-
+/* This function initializes all the basic variables 
+inside the t_global struct */
 void	init_global_variables(t_global *global, char **argv)
 {
 	global->nb_philo = valid_int(argv[1]);
@@ -96,10 +98,13 @@ void	init_global_variables(t_global *global, char **argv)
 	global->status = EAT;
 }
 
-/*This function wraps up all functions that initialize the data:
-  1- init_global_variables inits all variables that are not pointers that are gound in t_global struct.
-  2- init_global_forks inits the forks that are found in t_global struct.
-  3- init_each philo mallocs each philosophers (t_philo struct) and the data it contains.*/
+/*Function wraps up all functions that initialize the data:
+  1- init_global_variables inits all variables that are not 
+  pointers that are gound in t_global struct.
+  2- init_global_forks inits the forks that are found 
+  in t_global struct.
+  3- init_each philo mallocs each philosophers (t_philo struct) and 
+  the data it contains.*/
 
 void	init_variables(t_global *global, char **argv)
 {
