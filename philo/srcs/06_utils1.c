@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 16:43:04 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/08/26 14:38:21 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/08/29 16:43:23 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,16 @@ void	free_struct(t_global *global)
 	free(global->philo);
 }
 
-void	print_message(t_philo *p, char *str)
-{
+void	print_message(t_philo *p, char *str, char *str1)
+{	
 	pthread_mutex_lock(&p->global->message);
-	if (p->global->status != DIED)
+	if (p->global->status != DIED && p->global->status != DONE) // Ajouter la 2e condition DONE
 	{
-		printf("%lld ", timestamp_in_ms() - p->global->timestamp_start);
+		printf("%s%lld ",str1, timestamp_in_ms() - p->global->timestamp_start);
 		printf("%d ", p->id);
-		printf("%s", str);
-	}	
+		printf("%s"RESET, str);
+	}
+	else if (p->global->status == DONE)
+		printf("%s%s"RESET, str1, str);
 	pthread_mutex_unlock(&p->global->message);
 }
