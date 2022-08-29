@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 12:58:24 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/08/26 14:48:20 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/08/29 11:48:18 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	print_initial_values(t_global *g)
 	{
 		printf("The status of philosopher is [%d].\n", g->philo[i]->status);
 		printf("The index %d philosopher id is [%d].\n", i, g->philo[i]->id);
-		printf("The philosopher has eaten [%d] times.\n", g->philo[i]->nb_time_ate);
+		//printf("The philosopher has eaten [%d] times.\n", g->philo[i]->nb_time_ate);
 		printf("The philosophers last meal is at [%lld] (in milliseconds) from start.\n", g->philo[i]->time_last_meal);
 		printf("\n");
 		i++;		

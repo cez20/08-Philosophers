@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 15:03:38 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/08/26 14:29:11 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/08/29 13:01:26 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ void	init_each_philo(t_global *global)
 			return ;
 		global->philo[i]->status = EAT;
 		global->philo[i]->id = (i + 1);
-		global->philo[i]->nb_time_ate = 0;
 		global->philo[i]->time_last_meal = timestamp_in_ms();
 		global->philo[i]->global = global;
 		i++;
@@ -95,7 +94,9 @@ void	init_global_variables(t_global *global, char **argv)
 		global->time_must_eat = -1;
 	if (global->nb_philo == 0)
 		error(ERR_PHILO);
+	global->all_philo_ate = global->nb_philo * global->time_must_eat;
 	global->status = EAT;
+	printf("Global all philo ate is settled at : %d\n", global->all_philo_ate); // Commentaire ajoute 
 }
 
 /*Function wraps up all functions that initialize the data:

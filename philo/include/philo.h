@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 15:54:43 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/08/26 14:44:46 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/08/29 12:37:32 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define EAT 1
 # define SLEEP 2
 # define THINK 3
+# define DONE 4
 
 typedef struct s_philo	t_philo;//allow to declare t_philo variable s_global
 
@@ -36,9 +37,11 @@ typedef struct s_global
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				time_must_eat;
+	int 			all_philo_ate;
 	int				status;
 	long long		timestamp_start;
 	pthread_mutex_t	message;
+	pthread_mutex_t	all_ate;
 	pthread_t		checker;
 	t_philo			**philo;
 }			t_global;
@@ -47,7 +50,7 @@ typedef struct s_philo
 {
 	int				status;
 	int				id;
-	int				nb_time_ate;
+	//int				nb_time_ate;
 	long long		time_last_meal;
 	pthread_t		thread;
 	pthread_mutex_t	fork;

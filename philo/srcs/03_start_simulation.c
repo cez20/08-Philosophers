@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 15:59:40 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/08/26 14:34:36 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/08/29 13:12:27 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,11 @@ void	is_eating(t_philo *p)
 		print_message(p, "has taken a fork\n");
 		pthread_mutex_lock(p->right_fork);
 		print_message(p, "has taken a fork\n");
-		print_message(p, "is eating\n");
+		pthread_mutex_lock(&p->global->all_ate); // Proteger la variable, car sinon elle n'attendrait pas le bon chiffre
+		print_message(p, "is eating\n"); //Ajouter cette section
+		p->global->all_philo_ate--; // Ajouter cette section
+		printf("Le nombre de fois que all_eat est:%d\n", p->global->all_philo_ate);// Ajouter cette section
+		pthread_mutex_unlock(&p->global->all_ate); //Ajouter cette section 
 		p->time_last_meal = timestamp_in_ms();
 		sequential_usleep(p->global->time_to_eat, p->global);
 		pthread_mutex_unlock(&p->fork);
@@ -62,10 +66,17 @@ void	*start(void *p)
 	{
 		if (philo->status == EAT)
 			is_eating(philo);
+		if (philo->global->all_philo_ate == 0) // Condition ayant ete rajoute 
+			break; // Condition ayant ete rajoute 
 		else if (philo->status == SLEEP)
 			is_sleeping(philo);
 		else if (philo->status == THINK)
 			is_thinking(philo);
+	}
+	if (philo->global->status != DONE && philo->global->status != DIED) // CEtte section a ete rajoute 
+	{
+		philo->global->status = DONE; // Section rajoute 
+		print_message(philo, "All philo have eaten\n"); //Section rajoute
 	}
 	return (NULL);
 }

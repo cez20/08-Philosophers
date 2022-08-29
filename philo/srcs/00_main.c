@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 15:54:30 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/08/26 14:27:23 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/08/29 13:04:36 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	main(int argc, char **argv)
 	init_mutex(&global);
 	if (pthread_create(&global.checker, NULL, checker_loop, &global) != 0)
 		return (1);
-	pthread_detach(global.checker);
+	//pthread_detach(global.checker); // Detach afin que programme n'attende jamais que cette loop termine. 
 	start_simulation(&global);
 	end_simulation(&global);
 	destroy_mutex(&global);
@@ -43,7 +43,8 @@ void	*checker_loop(void *global)
 	int			i;
 
 	g = (t_global *)global;
-	while (g->status != DIED)
+	//while (g->status != DIED && g->all_philo_ate != 0) // Ajouter la 2eme condition ici
+	while (g->status != DIED && g->status != DONE) // Ajouter la 2eme condition ici
 	{
 		i = 0;
 		while (i < g->nb_philo)
@@ -58,7 +59,9 @@ void	*checker_loop(void *global)
 			if (g->status == DIED)
 				break ;
 			i++;
-		}	
+		}
+		//if (g->all_philo_ate == 0) // J'ai ajoute cette condition afin qu'il sorte de la loop. 
+			//break; // j'ai ajoute cette condition. 
 	}
 	return (NULL);
 }
