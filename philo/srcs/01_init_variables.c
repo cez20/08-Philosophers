@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 15:03:38 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/08/29 13:01:26 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/08/30 15:43:43 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	init_global_variables(t_global *global, char **argv)
 		error(ERR_PHILO);
 	global->all_philo_ate = global->nb_philo * global->time_must_eat;
 	global->status = EAT;
-	printf("Global all philo ate is settled at : %d\n", global->all_philo_ate); // Commentaire ajoute 
+	printf("The number of all_philo_ate is %d\n", global->all_philo_ate);
 }
 
 /*Function wraps up all functions that initialize the data:

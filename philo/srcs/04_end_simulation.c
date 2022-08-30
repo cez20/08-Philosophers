@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 12:38:01 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/08/29 14:53:28 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/08/29 17:32:33 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,5 @@ void	end_simulation(t_global *g)
 		pthread_join(g->philo[i]->thread, NULL);
 		i++;
 	}
-	pthread_join(g->checker, NULL); // Ajouter cette condition ici 
+	pthread_join(g->checker, NULL);
 }

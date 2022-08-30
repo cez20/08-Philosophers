@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 15:59:40 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/08/29 16:42:28 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/08/30 16:55:56 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,11 @@ void	is_eating(t_philo *p)
 		print_message(p, "has taken a fork\n", GRN);
 		pthread_mutex_lock(p->right_fork);
 		print_message(p, "has taken a fork\n", GRN);
-		pthread_mutex_lock(&p->global->all_ate); // Proteger la variable, car sinon elle n'attendrait pas le bon chiffre
-		print_message(p, "is eating\n", GRN); //Ajouter cette section
-		p->global->all_philo_ate--; // Ajouter cette section
-		printf("Le nombre de fois que all_eat est:%d\n", p->global->all_philo_ate);// Ajouter cette section
-		pthread_mutex_unlock(&p->global->all_ate); //Ajouter cette section 
+		pthread_mutex_lock(&p->global->all_ate);
+		p->global->all_philo_ate--;
+		print_message(p, "is eating\n", GRN);
+		printf("the all philo_ate is at: %d\n", p->global->all_philo_ate);
+		pthread_mutex_unlock(&p->global->all_ate);
 		p->time_last_meal = timestamp_in_ms();
 		sequential_usleep(p->global->time_to_eat, p->global);
 		pthread_mutex_unlock(&p->fork);
@@ -62,22 +62,22 @@ void	*start(void *p)
 	philo = (t_philo *)p;
 	if ((philo->id % 2) == 0)
 		usleep(15000);
-	while (philo->global->status != DIED)
+	while (philo->global->status != DIED && philo->global->all_philo_ate > 0)
 	{
 		if (philo->status == EAT)
 			is_eating(philo);
-		if(philo->global->all_philo_ate == 0)
-			break;
+		if (philo->global->all_philo_ate <= 0)
+			break ;
 		else if (philo->status == SLEEP)
 			is_sleeping(philo);
 		else if (philo->status == THINK)
 			is_thinking(philo);
 	}
-	if (philo->global->status != DONE && philo->global->status != DIED) // CEtte section a ete rajoute 
-	{
-		philo->global->status = DONE; // Section rajoute 
-		print_message(philo, "ALL PHILOSOPHERS ATE\n", RED); //Section rajoute
-	}
+	// if (philo->global->status != DONE && philo->global->status != DIED)
+	// {
+	// 	philo->global->status = DONE;
+	// 	print_message(philo, "ALL PHILOSOPHERS ATE\n", RED);
+	// }
 	return (NULL);
 }
 

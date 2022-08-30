@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 15:54:43 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/08/29 16:38:53 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/08/29 17:35:26 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,8 @@
 # define RED   "\x1B[31m"
 # define GRN   "\x1B[32m"
 # define YEL   "\x1B[33m"
-# define BLUE   "\x1B[34m"
-# define MAG   "\x1B[35m"
-# define CYN   "\x1B[36m"
-# define WHT   "\x1B[37m"
+# define BLUE  "\x1B[34m"
 # define RESET "\x1B[0m"
-
 
 typedef struct s_philo	t_philo;//allow to declare t_philo variable s_global
 
@@ -68,10 +64,6 @@ typedef struct s_philo
 
 //*** 00_MAIN.C ***
 int			main(int argc, char **argv);
-void		*checker_loop(void *global);
-//void		is_dying(t_philo *p, char *str);
-void	    is_dying(t_philo *p, char *str, char *str1);
-void		*meal_loop(void *global);
 
 //*** 01_INIT_VARIABLES.C ***
 void		init_variables(t_global *global, char **argv);
@@ -91,7 +83,6 @@ void		is_eating(t_philo *p);
 void		is_sleeping(t_philo *p);
 void		is_thinking(t_philo *p);
 
-
 //*** 03_END_SIMULATION.C ***
 void		end_simulation(t_global *g);
 
@@ -105,8 +96,9 @@ long long	timestamp_in_ms(void);
 //*** 06_UTILS1.C *** TO BE CHANGED FOR RIGHT NUMBER AT THE END
 void		sequential_usleep(long long total_time_for_action, t_global *g);
 void		free_struct(t_global *global);
-//void		print_message(t_philo *p, char *str);
 void		print_message(t_philo *p, char *str, char *str1);
+void		*check_if_dead(void *global);
+void		is_dying(t_philo *p, char *str, char *str1);
 
 //*** TEST.C ***
 void		print_initial_values(t_global *p);
