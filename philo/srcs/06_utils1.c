@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 16:43:04 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/08/30 16:56:12 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/08/30 18:05:53 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,20 @@ void	free_struct(t_global *global)
 void	print_message(t_philo *p, char *str, char *str1)
 {	
 	pthread_mutex_lock(&p->global->message);
-	if (p->global->status != DIED && p->global->status != DONE)
+	if (p->global->all_philo_ate == 0 && p->global->status != DONE && p->global->status != DIED)
+	{
+		p->global->status = DONE;
+		printf("%s%lld ", str1, timestamp_in_ms() - p->global->timestamp_start);
+		printf("%d ", p->id);
+		printf("%s"RESET, str);
+		printf(RED"ALL PHILOSOPHERS ATE\n"RESET);
+	}
+	else if (p->global->status != DIED && p->global->status != DONE)
 	{
 		printf("%s%lld ", str1, timestamp_in_ms() - p->global->timestamp_start);
 		printf("%d ", p->id);
 		printf("%s"RESET, str);
 	}
-	else if (p->global->status == DONE)
-		printf("%s%s"RESET, str1, str);
 	pthread_mutex_unlock(&p->global->message);
 }
 
@@ -84,9 +90,12 @@ void	*check_if_dead(void *global)
 
 void	is_dying(t_philo *p, char *str, char *str1)
 {
-	pthread_mutex_lock(&p->global->message);
-	printf("%s%lld ", str1, timestamp_in_ms() - p->global->timestamp_start);
-	printf("%d ", p->id);
-	printf("%s"RESET, str);
-	pthread_mutex_unlock(&p->global->message);
+	//if (p->global->status != DONE)
+	//{
+		pthread_mutex_lock(&p->global->message);
+		printf("%s%lld ", str1, timestamp_in_ms() - p->global->timestamp_start);
+		printf("%d ", p->id);
+		printf("%s"RESET, str);
+		pthread_mutex_unlock(&p->global->message);
+	//}
 }

@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 15:59:40 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/08/30 16:55:56 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/08/30 17:40:08 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ void	is_eating(t_philo *p)
 		print_message(p, "has taken a fork\n", GRN);
 		pthread_mutex_lock(&p->global->all_ate);
 		p->global->all_philo_ate--;
+		//printf("the all philo_ate is at: %d\n", p->global->all_philo_ate);
 		print_message(p, "is eating\n", GRN);
-		printf("the all philo_ate is at: %d\n", p->global->all_philo_ate);
 		pthread_mutex_unlock(&p->global->all_ate);
 		p->time_last_meal = timestamp_in_ms();
 		sequential_usleep(p->global->time_to_eat, p->global);
@@ -62,22 +62,17 @@ void	*start(void *p)
 	philo = (t_philo *)p;
 	if ((philo->id % 2) == 0)
 		usleep(15000);
-	while (philo->global->status != DIED && philo->global->all_philo_ate > 0)
+	while (philo->global->status != DIED)
 	{
 		if (philo->status == EAT)
 			is_eating(philo);
-		if (philo->global->all_philo_ate <= 0)
-			break ;
+		if (philo->global->status == DONE)
+			break;
 		else if (philo->status == SLEEP)
 			is_sleeping(philo);
 		else if (philo->status == THINK)
 			is_thinking(philo);
 	}
-	// if (philo->global->status != DONE && philo->global->status != DIED)
-	// {
-	// 	philo->global->status = DONE;
-	// 	print_message(philo, "ALL PHILOSOPHERS ATE\n", RED);
-	// }
 	return (NULL);
 }
 
