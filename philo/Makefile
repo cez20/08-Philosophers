@@ -6,32 +6,30 @@
 #    By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/20 15:53:41 by cemenjiv          #+#    #+#              #
-#    Updated: 2022/08/31 12:44:30 by cemenjiv         ###   ########.fr        #
+#    Updated: 2022/08/31 13:36:37 by cemenjiv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME			= philo 
+NAME			= philo
 
-SRCS			= $(wildcard srcs/*.c)
-
+SRCS_DIR		= srcs/
 OBJS_DIR		= objs/
 
-HEADER			= -Iinclude/
-				  	  
-HEADER_PATH     = include/
+HEADER_DIR      = include/
 
 PTHREAD			= -pthread
-						
-OBJS			= $(SRCS:.c=.o) #Declaration OBJS (objets). Tous les fichiers terminant par le suffixe .c vont devenir .o
 
-CC				= gcc  #name of C compiler
+CC				= gcc
 CFLAGS			= -Wall -Wextra -Werror -g
-RM				= rm -f  #shortcut Rm fait ce que fait normalement rm -f 
+RM				= rm -f
 
-%.o: %.c
-				$(CC) $(CFLAGS) $(HEADER) $(LPTHREAD) -c $< -o $@
+SRCS			= $(wildcard $(SRCS_DIR)*.c)
+OBJS			= $(patsubst $(SRCS_DIR)%.c, $(OBJS_DIR)%.o, $(SRCS))
 
-all:			$(NAME)  #commande "make all" fait ce que la variable NAME fait
+$(OBJS_DIR)%.o: $(SRCS_DIR)%.c
+				$(CC) $(CFLAGS) -I$(HEADER_DIR) $(PTHREAD) -c $< -o $@
+
+all:			objs $(NAME)
 
 $(NAME):		$(OBJS)
 				@printf "\033c"
@@ -43,21 +41,25 @@ $(NAME):		$(OBJS)
 				@sleep 0.5
 				@printf "\033c"
 				@echo "\n\033[33m    COMPILING [*******]"
-				@echo "\n\033[32m\033[1m philo program is compiled! \n\033[0m"					
-	
-clean:		
+				@echo "\n\033[32m\033[1m philo program is compiled! \n\033[0m"
+
+clean:
 				$(RM) $(OBJS)
-				
+				$(RM) -rf $(OBJS_DIR)
+
 fclean:			clean
 				$(RM) $(NAME)
-				
+
 re:				fclean all
-				
+
 .PHONY:			all clean fclean re norm warning
 
+objs:
+				mkdir -p objs
+
 norm:
-				@norminette $(HEADER_PATH)
+				@norminette $(HEADER_DIR)
 				@norminette $(SRCS)
-				
+
 warning:		CFLAGS += -w
 warning:		$(NAME)

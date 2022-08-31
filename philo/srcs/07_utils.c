@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 16:43:04 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/08/31 12:42:14 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/08/31 16:52:06 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,23 +58,40 @@ void	print_message(t_philo *p, char *str)
 	t_global	*g;
 
 	g = p->global;
-	pthread_mutex_lock(&p->global->message);
-	if (g->meal_count == 0 && g->status != DONE && g->status != DIED)
-	{
-		p->global->status = DONE;
-		printf("%lld ", timestamp_in_ms() - p->global->timestamp_start);
-		printf("%d ", p->id);
-		printf("%s", str);
-		printf("ALL PHILOSOPHERS ATE!!!\n");
-	}
-	else if (p->global->status != DIED && p->global->status != DONE)
+	pthread_mutex_lock(&g->message);
+	if (g->status != DONE && g->status != DIED)
 	{
 		printf("%lld ", timestamp_in_ms() - p->global->timestamp_start);
 		printf("%d ", p->id);
 		printf("%s", str);
+		if (g->meal_count == 0) 
+		{
+			g->status = DONE;
+			printf("ALL PHILOSOPHERS ATE!!!\n");//Mettre un usleep apres?
+		}
 	}
-	pthread_mutex_unlock(&p->global->message);
+	pthread_mutex_unlock(&g->message);
 }
+
+// void	print_message(t_philo *p, char *str)
+// {	
+// 	t_global	*g;
+
+// 	g = p->global;
+// 	pthread_mutex_lock(&g->message);
+// 	if (g->meal_count != 0 && g->status != DIED && g->status != DONE)
+// 	{
+// 		printf("%lld ", timestamp_in_ms() - g->timestamp_start);
+// 		printf("%d ", p->id);
+// 		printf("%s", str);
+// 	}
+// 	if (g->meal_count == 0 && g->status != DONE && g->status != DIED)
+// 	{
+// 		g->status = DONE;
+// 		printf("ALL PHILOSOPHERS ATE!!!\n");
+// 	}
+// 	pthread_mutex_unlock(&g->message);
+// }
 
 /*Fonction to calculate timestamp in milliseconds
 tv.sec is data in seconds. We multiply it by 1000 to get

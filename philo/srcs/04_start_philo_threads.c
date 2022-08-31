@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 15:59:40 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/08/31 12:42:03 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/08/31 16:31:33 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	is_eating(t_philo *p)
 		p->global->meal_count--;
 		print_message(p, "is eating\n");
 		pthread_mutex_unlock(&p->global->meal_tracker);
-		p->time_last_meal = timestamp_in_ms();
+		p->time_last_meal = timestamp_in_ms(); // L'heure de debut du repas et l'heure de son dernier repas 
 		sequential_usleep(p->global->time_to_eat, p->global);
 		pthread_mutex_unlock(&p->fork);
 		pthread_mutex_unlock(p->right_fork);
