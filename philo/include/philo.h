@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 15:54:43 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/08/29 17:35:26 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/08/30 21:07:03 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,6 @@
 # define SLEEP 2
 # define THINK 3
 # define DONE 4
-# define RED   "\x1B[31m"
-# define GRN   "\x1B[32m"
-# define YEL   "\x1B[33m"
-# define BLUE  "\x1B[34m"
-# define RESET "\x1B[0m"
 
 typedef struct s_philo	t_philo;//allow to declare t_philo variable s_global
 
@@ -42,12 +37,12 @@ typedef struct s_global
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				time_must_eat;
-	int				all_philo_ate;
-	int				status;
 	long long		timestamp_start;
+	int				meal_count;
+	int				status;
 	pthread_mutex_t	message;
-	pthread_mutex_t	all_ate;
-	pthread_t		checker;
+	pthread_mutex_t	meal_tracker;
+	pthread_t		death_checker;
 	t_philo			**philo;
 }			t_global;
 
@@ -76,31 +71,28 @@ void		philo_right_fork(t_global *global);
 void		init_mutex(t_global *global);
 void		destroy_mutex(t_global *global);
 
-//*** 02_START_SIMULATION.C ***
+//*** 03_START_SIMULATION.C ***
 void		start_simulation(t_global *p);
 void		*start(void *p);
 void		is_eating(t_philo *p);
 void		is_sleeping(t_philo *p);
 void		is_thinking(t_philo *p);
 
-//*** 03_END_SIMULATION.C ***
+//*** 04_END_SIMULATION.C ***
 void		end_simulation(t_global *g);
 
-//*** 05_UTILS.C *** TO BE CHANGED FOR RIGHT NUMBER AT THE END 
+//*** 05_UTILS.C *** 
 int			ft_isdigit(int c);
 int			ft_atoi(const char *str);
 size_t		ft_strlen(const char *s);
 void		error(char *str);
 long long	timestamp_in_ms(void);
 
-//*** 06_UTILS1.C *** TO BE CHANGED FOR RIGHT NUMBER AT THE END
+//*** 06_UTILS1.C ***
 void		sequential_usleep(long long total_time_for_action, t_global *g);
 void		free_struct(t_global *global);
-void		print_message(t_philo *p, char *str, char *str1);
+void		print_message(t_philo *p, char *str);
 void		*check_if_dead(void *global);
-void		is_dying(t_philo *p, char *str, char *str1);
-
-//*** TEST.C ***
-void		print_initial_values(t_global *p);
+void		is_dying(t_philo *p, char *str);
 
 #endif

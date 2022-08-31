@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 15:59:40 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/08/30 17:40:08 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/08/30 21:05:10 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 void	is_thinking(t_philo *p)
 {
-	print_message(p, "is thinking\n", YEL);
+	print_message(p, "is thinking\n");
 	p->status = EAT;
 }
 
 void	is_sleeping(t_philo *p)
 {
-	print_message(p, "is sleeping\n", BLUE);
+	print_message(p, "is sleeping\n");
 	sequential_usleep(p->global->time_to_sleep, p->global);
 	p->status = THINK;
 }
@@ -30,21 +30,20 @@ void	is_eating(t_philo *p)
 	if (p->global->nb_philo == 1)
 	{
 		pthread_mutex_lock(&p->fork);
-		print_message(p, "has taken a fork\n", GRN);
+		print_message(p, "has taken a fork\n");
 		usleep(p->global->time_to_die * 1100);
 		pthread_mutex_unlock(&p->fork);
 	}
 	else
 	{
 		pthread_mutex_lock(&p->fork);
-		print_message(p, "has taken a fork\n", GRN);
+		print_message(p, "has taken a fork\n");
 		pthread_mutex_lock(p->right_fork);
-		print_message(p, "has taken a fork\n", GRN);
-		pthread_mutex_lock(&p->global->all_ate);
-		p->global->all_philo_ate--;
-		//printf("the all philo_ate is at: %d\n", p->global->all_philo_ate);
-		print_message(p, "is eating\n", GRN);
-		pthread_mutex_unlock(&p->global->all_ate);
+		print_message(p, "has taken a fork\n");
+		pthread_mutex_lock(&p->global->meal_tracker);
+		p->global->meal_count--;
+		print_message(p, "is eating\n");
+		pthread_mutex_unlock(&p->global->meal_tracker);
 		p->time_last_meal = timestamp_in_ms();
 		sequential_usleep(p->global->time_to_eat, p->global);
 		pthread_mutex_unlock(&p->fork);
@@ -67,7 +66,7 @@ void	*start(void *p)
 		if (philo->status == EAT)
 			is_eating(philo);
 		if (philo->global->status == DONE)
-			break;
+			break ;
 		else if (philo->status == SLEEP)
 			is_sleeping(philo);
 		else if (philo->status == THINK)

@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 15:54:30 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/08/29 17:35:41 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/08/30 21:11:42 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	main(int argc, char **argv)
 		error(ERR_ARGS);
 	init_variables(&global, argv);
 	init_mutex(&global);
-	if (pthread_create(&global.checker, NULL, check_if_dead, &global) != 0)
+	if (pthread_create(&global.death_checker, NULL, check_if_dead, &global))
 		return (1);
 	start_simulation(&global);
 	end_simulation(&global);

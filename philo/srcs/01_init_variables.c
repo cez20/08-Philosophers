@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 15:03:38 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/08/30 18:07:31 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/08/30 21:04:36 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	init_global_variables(t_global *global, char **argv)
 		global->time_must_eat = -1;
 	if (global->nb_philo == 0)
 		error(ERR_PHILO);
-	global->all_philo_ate = global->nb_philo * global->time_must_eat;
+	global->meal_count = global->nb_philo * global->time_must_eat;
 	global->status = EAT;
 }
 
@@ -111,5 +111,4 @@ void	init_variables(t_global *global, char **argv)
 	init_global_variables(global, argv);
 	init_each_philo(global);
 	philo_right_fork(global);
-	//print_initial_values(global);
 }

@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 16:43:04 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/08/30 18:05:53 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/08/30 21:05:58 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,22 +41,25 @@ void	free_struct(t_global *global)
 	free(global->philo);
 }
 
-void	print_message(t_philo *p, char *str, char *str1)
+void	print_message(t_philo *p, char *str)
 {	
+	t_global	*g;
+
+	g = p->global;
 	pthread_mutex_lock(&p->global->message);
-	if (p->global->all_philo_ate == 0 && p->global->status != DONE && p->global->status != DIED)
+	if (g->meal_count == 0 && g->status != DONE && g->status != DIED)
 	{
 		p->global->status = DONE;
-		printf("%s%lld ", str1, timestamp_in_ms() - p->global->timestamp_start);
+		printf("%lld ", timestamp_in_ms() - p->global->timestamp_start);
 		printf("%d ", p->id);
-		printf("%s"RESET, str);
-		printf(RED"ALL PHILOSOPHERS ATE\n"RESET);
+		printf("%s", str);
+		printf("ALL PHILOSOPHERS ATE!!!\n");
 	}
 	else if (p->global->status != DIED && p->global->status != DONE)
 	{
-		printf("%s%lld ", str1, timestamp_in_ms() - p->global->timestamp_start);
+		printf("%lld ", timestamp_in_ms() - p->global->timestamp_start);
 		printf("%d ", p->id);
-		printf("%s"RESET, str);
+		printf("%s", str);
 	}
 	pthread_mutex_unlock(&p->global->message);
 }
@@ -77,7 +80,7 @@ void	*check_if_dead(void *global)
 			if ((current_time - g->philo[i]->time_last_meal) > g->time_to_die)
 			{
 				g->status = DIED;
-				is_dying(g->philo[i], "died\n", RED);
+				is_dying(g->philo[i], "died\n");
 				usleep(100);
 			}
 			if (g->status == DIED)
@@ -88,14 +91,11 @@ void	*check_if_dead(void *global)
 	return (NULL);
 }
 
-void	is_dying(t_philo *p, char *str, char *str1)
+void	is_dying(t_philo *p, char *str)
 {
-	//if (p->global->status != DONE)
-	//{
-		pthread_mutex_lock(&p->global->message);
-		printf("%s%lld ", str1, timestamp_in_ms() - p->global->timestamp_start);
-		printf("%d ", p->id);
-		printf("%s"RESET, str);
-		pthread_mutex_unlock(&p->global->message);
-	//}
+	pthread_mutex_lock(&p->global->message);
+	printf("%lld ", timestamp_in_ms() - p->global->timestamp_start);
+	printf("%d ", p->id);
+	printf("%s", str);
+	pthread_mutex_unlock(&p->global->message);
 }
