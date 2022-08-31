@@ -77,11 +77,10 @@ printf "\033[1;31m--------------SHOULD TAKE A FORK AND THEN DIES --------------\
 printf "\033[1;34mSCRIPT TEST IS DONE WITH ./philo 1 800 200 200 \n\033[1;0m"
 ./philo 1 800 200 200
 
-printf "\033[1;33m-------------- PROGRAM RUNS WITH 1 PHILOSOPHER --------------\n\033[1;0m"
+printf "\033[1;33m-------------- PROGRAM RUNS WITH A DEFINITE NUMBER OF MEALS --------------\n\033[1;0m"
 printf "\033[1;31m--------------SHOULD TAKE A FORK AND THEN DIES --------------\n\033[1;33m"
 printf "\033[1;34mSCRIPT TEST IS DONE WITH ./philo 5 800 200 200 7 \n\033[1;0m"
 ./philo 5 800 200 200 7
-
 
 
 # ------------------------------------PROGRAM RUNNING CORRECTLY----------------------------------- 
@@ -113,8 +112,7 @@ printf "\033[1;34mSCRIPT TEST IS DONE WITH ./philo 5 800 200 200 7 \n\033[1;0m"
 # printf "\033[1;34mSCRIPT TEST IS DONE WITH ./philo 5 800 200 200 7  \n\033[1;0m"
 # ./philo 5 800 200 200 7
 
-
-sleep 10
+sleep 5
 
 make fclean
 

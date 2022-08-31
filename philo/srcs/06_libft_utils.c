@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 15:31:44 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/08/26 14:37:55 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/08/31 10:33:38 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,20 +55,4 @@ size_t	ft_strlen(const char *s)
 	while (s[i] != '\0')
 		i++;
 	return (i);
-}
-
-void	error(char *str)
-{
-	write(2, str, ft_strlen(str));
-	exit(EXIT_FAILURE);
-}
-
-long long	timestamp_in_ms(void)
-{
-	struct timeval		time;
-	long long			timestamp;
-
-	gettimeofday(&time, NULL);
-	timestamp = (time.tv_sec * 1000) + (time.tv_usec / 1000);
-	return (timestamp);
 }

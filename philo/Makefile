@@ -6,7 +6,7 @@
 #    By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/20 15:53:41 by cemenjiv          #+#    #+#              #
-#    Updated: 2022/08/16 19:09:58 by cemenjiv         ###   ########.fr        #
+#    Updated: 2022/08/31 12:44:30 by cemenjiv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,17 +53,11 @@ fclean:			clean
 				
 re:				fclean all
 				
-.PHONY:			all clean fclean re
+.PHONY:			all clean fclean re norm warning
 
 norm:
 				@norminette $(HEADER_PATH)
 				@norminette $(SRCS)
 				
-push:
-				@git add .
-				@read -p "name of commit: " INP \
-				&& git commit -m "$${INP}"
-				@git push
-
 warning:		CFLAGS += -w
 warning:		$(NAME)

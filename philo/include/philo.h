@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 15:54:43 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/08/30 21:07:03 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/08/31 11:16:05 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,28 +71,31 @@ void		philo_right_fork(t_global *global);
 void		init_mutex(t_global *global);
 void		destroy_mutex(t_global *global);
 
-//*** 03_START_SIMULATION.C ***
-void		start_simulation(t_global *p);
-void		*start(void *p);
-void		is_eating(t_philo *p);
-void		is_sleeping(t_philo *p);
+//*** 03_DEATH_CHECKER.C ***
+void		is_dying(t_philo *p, char *str);
+void		*check_if_dead(void *global);
+
+//*** 04_START_PHILO_THREADS.C ***
+
 void		is_thinking(t_philo *p);
+void		is_sleeping(t_philo *p);
+void		is_eating(t_philo *p);
+void		*start(void *p);
+void		start_philo_threads(t_global *p);
 
-//*** 04_END_SIMULATION.C ***
-void		end_simulation(t_global *g);
+//*** 04_END_PHILO_THREADS.C ***
+void		end_philo_threads(t_global *g);
 
-//*** 05_UTILS.C *** 
+//*** 05_LIBFT_UTILS.C *** 
 int			ft_isdigit(int c);
 int			ft_atoi(const char *str);
 size_t		ft_strlen(const char *s);
-void		error(char *str);
-long long	timestamp_in_ms(void);
 
-//*** 06_UTILS1.C ***
-void		sequential_usleep(long long total_time_for_action, t_global *g);
+//*** 06_UTILS.C ***
 void		free_struct(t_global *global);
+void		sequential_usleep(long long total_time_for_action, t_global *g);
 void		print_message(t_philo *p, char *str);
-void		*check_if_dead(void *global);
-void		is_dying(t_philo *p, char *str);
+long long	timestamp_in_ms(void);
+void		error(char *str);
 
 #endif

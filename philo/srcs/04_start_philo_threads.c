@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   03_start_simulation.c                              :+:      :+:    :+:   */
+/*   04_start_philo_threads.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 15:59:40 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/08/30 21:05:10 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/08/31 12:42:03 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+/*Message to be printed out when philo thinks*/
 void	is_thinking(t_philo *p)
 {
 	print_message(p, "is thinking\n");
 	p->status = EAT;
 }
 
+/*Message to be printed out when philo sleeps*/
 void	is_sleeping(t_philo *p)
 {
 	print_message(p, "is sleeping\n");
@@ -25,6 +27,12 @@ void	is_sleeping(t_philo *p)
 	p->status = THINK;
 }
 
+/* Message to be printed out, when philo eats. If philo
+is 1, then we only take one fork, usleep for a time longer
+than time_to_die and then dies. In other cases, philo eats.
+mutex_lock for each fork so that no other philo can use same
+forks. Mutex_lock when he eats to make sure meal_count keeps 
+the right count*/
 void	is_eating(t_philo *p)
 {
 	if (p->global->nb_philo == 1)
@@ -75,12 +83,12 @@ void	*start(void *p)
 	return (NULL);
 }
 
-/* This function takes the double pointer **philo inside my data struct. 
-This double_pointer points to another structure that contains all the 
-information regarding each philosophers. We malloc enough memory to the
-double pointers so that it can accept all philo struct. Then, after we 
-malloc each subelements so that it has enough memory */
-void	start_simulation(t_global *g)
+/* This function initiliazes 1 thread per philosophers by using 
+pthread_create.The "philo_thread" goes inside the function "start" 
+to realize all acton in loop.Then, the "MAIN" thread updates the 
+time_last_meal for current philo thread and then goes again in the loop 
+to create the threads for all remaining philosophers*/
+void	start_philo_threads(t_global *g)
 {
 	int	i;
 

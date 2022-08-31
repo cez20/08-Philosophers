@@ -6,12 +6,17 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 15:03:38 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/08/30 21:04:36 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/08/31 11:20:45 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+/*This function identifies the right fork of each philosophers
+  If there is only 1 philosopher, right fork is non-existing. If
+  philo id corresponds to the total number of philos, then the right 
+  forks the  first' philosophers(philo[0]). In all other cases, it is the philo 
+  on the right (philo[i + 1]) */
 void	philo_right_fork(t_global *global)
 {
 	int	i;
