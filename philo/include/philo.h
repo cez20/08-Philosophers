@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 15:54:43 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/08/31 11:16:05 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/08/31 23:28:21 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ void		end_philo_threads(t_global *g);
 int			ft_isdigit(int c);
 int			ft_atoi(const char *str);
 size_t		ft_strlen(const char *s);
+int			ft_strcmp(const char *s1, const char *s2);
 
 //*** 06_UTILS.C ***
 void		free_struct(t_global *global);

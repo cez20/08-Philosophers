@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 16:43:04 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/08/31 16:52:06 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/08/31 23:42:03 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,18 @@ void	print_message(t_philo *p, char *str)
 	pthread_mutex_lock(&g->message);
 	if (g->status != DONE && g->status != DIED)
 	{
-		printf("%lld ", timestamp_in_ms() - p->global->timestamp_start);
-		printf("%d ", p->id);
-		printf("%s", str);
-		if (g->meal_count == 0) 
+		if (g->time_must_eat != 0)
+		{
+			printf("%lld ", timestamp_in_ms() - g->timestamp_start);
+			printf("%d ", p->id);
+			printf("%s", str);
+			if (ft_strcmp(str, "is eating\n") == 0)
+				g->meal_count--;
+		}
+		if (g->meal_count == 0)
 		{
 			g->status = DONE;
-			printf("ALL PHILOSOPHERS ATE!!!\n");//Mettre un usleep apres?
+			printf("ALL PHILOSOPHERS ATE!!!\n");
 		}
 	}
 	pthread_mutex_unlock(&g->message);
