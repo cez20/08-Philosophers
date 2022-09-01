@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 15:54:43 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/08/31 23:28:21 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/09/01 11:14:44 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ typedef struct s_global
 	int				meal_count;
 	int				status;
 	pthread_mutex_t	message;
-	pthread_mutex_t	meal_tracker;
 	pthread_t		death_checker;
 	t_philo			**philo;
 }			t_global;

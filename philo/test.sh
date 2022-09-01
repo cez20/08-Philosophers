@@ -70,6 +70,12 @@ printf "\033[1;31m--------------SHOULD BE AN ERROR--------------\n\033[1;33m"
 printf "\033[1;34mSCRIPT TEST IS DONE WITH ./philo 0 500 1000 1000 \n\033[1;0m"
 ./philo 0 500 1000 1000
 
+printf "\033[1;33m-------------- ERROR TEST WHEN MEALS IS ASSIGNED TO 0 --------------\n\033[1;0m"
+printf "\033[1;31m-------------- ERROR MESSAGE OR DISPLAY ALL PHILOSOPHERS ATE --------------\n\033[1;33m"
+printf "\033[1;34mSCRIPT TEST IS DONE WITH ./philo 4 310 200 100 0 \n\033[1;0m"
+./philo 4 310 200 100 0
+
+
 # ------------------------------------PROGRAM RUNNING BUT ENDING BECAUSE DEATH OR FINISH MEAL----------------------------------- 
 
 printf "\033[1;33m-------------- PROGRAM RUNS WITH 1 PHILOSOPHER --------------\n\033[1;0m"
@@ -77,42 +83,21 @@ printf "\033[1;31m--------------SHOULD TAKE A FORK AND THEN DIES --------------\
 printf "\033[1;34mSCRIPT TEST IS DONE WITH ./philo 1 800 200 200 \n\033[1;0m"
 ./philo 1 800 200 200
 
+sleep 2
+
 printf "\033[1;33m-------------- PROGRAM RUNS WITH A DEFINITE NUMBER OF MEALS --------------\n\033[1;0m"
-printf "\033[1;31m--------------SHOULD TAKE A FORK AND THEN DIES --------------\n\033[1;33m"
+printf "\033[1;31m--------------ALL PHILO SHOULD EAT AND PROGRAM STOPS --------------\n\033[1;33m"
 printf "\033[1;34mSCRIPT TEST IS DONE WITH ./philo 5 800 200 200 7 \n\033[1;0m"
 ./philo 5 800 200 200 7
 
+sleep 2
 
-# ------------------------------------PROGRAM RUNNING CORRECTLY----------------------------------- 
+printf "\033[1;33m-------------- PROGRAM RUNS, BUT NO NUMBERS OF MEALS IS ASSIGNED --------------\n\033[1;0m"
+printf "\033[1;31m--------------1 PHILOSOPHER ONLY SHOULD DIE --------------\n\033[1;33m"
+printf "\033[1;34mSCRIPT TEST IS DONE WITH ./philo 4 310 200 100  \n\033[1;0m"
+./philo 4 310 200 100
 
-# printf "\n\033[1;32m----------------------------WHEN PROGRAM RUNS SMOOTHLY ----------------------------\n\n\n\033[1;0m"
-
-# printf "\033[1;33m-------------- PROGRAM RUNNING CORRECTLY WITH ARGC=5--------------\n\033[1;0m"
-# printf "\033[1;31m--------------PROGRAM SHOULD RUN AND PHILO DIES--------------\n\033[1;33m"
-# printf "\033[1;34mSCRIPT TEST IS DONE WITH ./philo 4 1000 500 500 \n\033[1;0m"
-# ./philo 4 1000 500 500
-
-# printf "\033[1;33m-------------- PROGRAM RUNNING CORRECTLY WITH ARGC=6--------------\n\033[1;0m"
-# printf "\033[1;31m--------------SHOULD STOP AFTER EATING 6 TIMES--------------\n\033[1;33m"
-# printf "\033[1;34mSCRIPT TEST IS DONE WITH ./philo 4 1000 500 500 400 \n\033[1;0m"
-# ./philo 4 1000 500 500 6
-
-# printf "\033[1;33m-------------- PROGRAM RUNNING CORRECTLY WITH 1 PHILOSOPHER--------------\n\033[1;0m"
-# printf "\033[1;31m--------------PHILO SHOULD TAKE A FORK AND DIE --------------\n\033[1;33m"
-# printf "\033[1;34mSCRIPT TEST IS DONE WITH ./philo 4 1000 500 500  \n\033[1;0m"
-# ./philo 1 1000 500 500
-
-# printf "\033[1;33m-------------- PROGRAM RUNNING CORRECTLY WITH 5 PHILOSOPHERS--------------\n\033[1;0m"
-# printf "\033[1;31m--------------PHILOS SHOULD EAT INDEFINITELY --------------\n\033[1;33m"
-# printf "\033[1;34mSCRIPT TEST IS DONE WITH ./philo 5 800 200 200  \n\033[1;0m"
-# ./philo 5 800 200 200
-
-# printf "\033[1;33m-------------- PROGRAM RUNNING CORRECTLY WITH 5 PHILOSOPHERS--------------\n\033[1;0m"
-# printf "\033[1;31m--------------PHILO SHOULD EAT 7 times and stop stimulation--------------\n\033[1;33m"
-# printf "\033[1;34mSCRIPT TEST IS DONE WITH ./philo 5 800 200 200 7  \n\033[1;0m"
-# ./philo 5 800 200 200 7
-
-sleep 5
+sleep 2
 
 make fclean
 

@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 15:03:38 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/08/31 23:36:47 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/09/01 12:31:12 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,11 +94,11 @@ void	init_global_variables(t_global *global, char **argv)
 	global->time_to_eat = valid_int(argv[3]);
 	global->time_to_sleep = valid_int(argv[4]);
 	if (argv[5])
-		global->time_must_eat = valid_int(argv[5]);		//
+		global->time_must_eat = valid_int(argv[5]);
 	else
 		global->time_must_eat = -1;
-	if (global->time_must_eat == 0) // A enlever ou garder
-			error(ERR_DATA);	
+	if (global->time_must_eat == 0)
+		error(ERR_DATA);
 	if (global->nb_philo == 0)
 		error(ERR_PHILO);
 	global->meal_count = global->nb_philo * global->time_must_eat;

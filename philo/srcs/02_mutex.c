@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 15:02:49 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/08/31 11:17:06 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/09/01 11:21:45 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ void	destroy_mutex(t_global *global)
 		i++;
 	}
 	if (pthread_mutex_destroy(&global->message) != 0)
-		return ;
-	if (pthread_mutex_destroy(&global->meal_tracker) != 0)
 		return ;
 }
 
@@ -49,7 +47,5 @@ void	init_mutex(t_global *global)
 		i++;
 	}
 	if (pthread_mutex_init(&global->message, NULL) != 0)
-		return ;
-	if (pthread_mutex_init(&global->meal_tracker, NULL) != 0)
 		return ;
 }

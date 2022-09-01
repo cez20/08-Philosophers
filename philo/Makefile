@@ -6,7 +6,7 @@
 #    By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/20 15:53:41 by cemenjiv          #+#    #+#              #
-#    Updated: 2022/08/31 13:36:37 by cemenjiv         ###   ########.fr        #
+#    Updated: 2022/09/01 12:30:06 by cemenjiv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,17 +32,8 @@ $(OBJS_DIR)%.o: $(SRCS_DIR)%.c
 all:			objs $(NAME)
 
 $(NAME):		$(OBJS)
-				@printf "\033c"
-				@echo "\n\033[33m    COMPILING [*......]"
-				@sleep 0.5
-				@printf "\033c"
-				@echo "\n\033[33m    COMPILING [****...]"
 				@$(CC) ${OBJS} -o $@
-				@sleep 0.5
-				@printf "\033c"
-				@echo "\n\033[33m    COMPILING [*******]"
-				@echo "\n\033[32m\033[1m philo program is compiled! \n\033[0m"
-
+				
 clean:
 				$(RM) $(OBJS)
 				$(RM) -rf $(OBJS_DIR)
