@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 16:43:04 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/09/01 17:43:49 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/09/01 17:59:48 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,8 @@ long long	timestamp_in_ms(void)
 }
 
 /* Error message on stderr*/
-void	error(char *str)
+int	error(char *str)
 {
 	write(2, str, ft_strlen(str));
-	exit(EXIT_FAILURE);
+	return (1);
 }

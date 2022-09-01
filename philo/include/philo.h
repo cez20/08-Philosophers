@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 15:54:43 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/09/01 17:20:15 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/09/01 18:12:34 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,10 @@ typedef struct s_philo
 int			main(int argc, char **argv);
 
 //*** 01_INIT_VARIABLES.C ***
-void		init_variables(t_global *global, char **argv);
-void		init_global_variables(t_global *global, char **argv);
+//void		init_variables(t_global *global, char **argv);
+int			init_variables(t_global *global, char **argv);
+//void		init_global_variables(t_global *global, char **argv);
+int			init_global_variables(t_global *global, char **argv);
 int			valid_int(char *argv);
 void		init_each_philo(t_global *global);
 void		philo_right_fork(t_global *global);
@@ -98,6 +100,7 @@ void		free_struct(t_global *global);
 void		sequential_usleep(long long total_time_for_action, t_global *g);
 void		print_message(t_philo *p, char *str);
 long long	timestamp_in_ms(void);
-void		error(char *str);
+//void		error(char *str);
+int			error(char *str);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 15:54:30 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/09/01 17:18:47 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/09/01 18:13:40 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@ int	main(int argc, char **argv)
 	t_global	global;
 
 	if (argc < 5 || argc > 6)
-		error(ERR_ARGS);
-	init_variables(&global, argv);
+		return (error(ERR_ARGS));
+	if (init_variables(&global, argv))
+		return (1);
 	init_mutex(&global);
 	if (pthread_create(&global.death_checker, NULL, check_if_dead, &global))
 		return (1);
