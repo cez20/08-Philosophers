@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 15:03:38 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/09/01 12:31:12 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/09/01 17:20:41 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	init_each_philo(t_global *global)
 		global->philo[i]->id = (i + 1);
 		global->philo[i]->time_last_meal = timestamp_in_ms();
 		global->philo[i]->global = global;
+		global->philo[i]->meal = 0;
 		i++;
 	}
 }

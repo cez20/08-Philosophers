@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 16:43:04 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/09/01 11:07:07 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/09/01 17:43:49 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,15 +59,20 @@ void	print_message(t_philo *p, char *str)
 
 	g = p->global;
 	pthread_mutex_lock(&g->message);
-	if (g->status != DONE && g->status != DIED)
+	//if (g->status != DONE && g->status != DIED)
+	if ((g->status != DIED) && (p->meal != g->time_must_eat))
 	{
 		if (g->time_must_eat != 0)
 		{
 			printf("%lld ", timestamp_in_ms() - g->timestamp_start);
 			printf("%d ", p->id);
 			printf("%s", str);
-			if (ft_strcmp(str, "is eating\n") == 0)
+			if (ft_strcmp(str, "is eating\n") == 0 && \
+			p->meal != g->time_must_eat)
+			{
 				g->meal_count--;
+				p->meal++;
+			}
 		}
 		if (g->meal_count == 0)
 		{

@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 15:59:40 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/09/01 12:29:28 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/09/01 17:42:25 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 void	is_thinking(t_philo *p)
 {
 	print_message(p, "is thinking\n");
+	usleep(200);
 	p->status = EAT;
 }
 
@@ -44,9 +45,11 @@ void	is_eating(t_philo *p)
 	}
 	else
 	{
+		pthread_mutex_lock(&p->global->fork_checker);
 		pthread_mutex_lock(&p->fork);
 		print_message(p, "has taken a fork\n");
 		pthread_mutex_lock(p->right_fork);
+		pthread_mutex_unlock(&p->global->fork_checker);
 		print_message(p, "has taken a fork\n");
 		print_message(p, "is eating\n");
 		p->time_last_meal = timestamp_in_ms();
@@ -64,19 +67,22 @@ void	*start(void *p)
 	t_philo		*philo;
 
 	philo = (t_philo *)p;
-	if ((philo->id % 2) == 0)
+	if ((philo->id % 2) == 1)
 		usleep(15000);
 	while (philo->global->status != DIED)
 	{
 		if (philo->status == EAT)
 			is_eating(philo);
-		if (philo->global->status == DONE)
+		//if (philo->global->status == DONE)
+			//break ;
+		if (philo->meal == philo->global->time_must_eat)
 			break ;
 		else if (philo->status == SLEEP)
 			is_sleeping(philo);
 		else if (philo->status == THINK)
 			is_thinking(philo);
 	}
+	//printf("Philo[%d] a mange %d fois\n", philo->id, philo->meal);
 	return (NULL);
 }
 

@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 15:02:49 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/09/01 11:21:45 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/09/01 17:26:19 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	destroy_mutex(t_global *global)
 		i++;
 	}
 	if (pthread_mutex_destroy(&global->message) != 0)
+		return ;
+	if (pthread_mutex_destroy(&global->fork_checker) != 0)
 		return ;
 }
 
@@ -47,5 +49,7 @@ void	init_mutex(t_global *global)
 		i++;
 	}
 	if (pthread_mutex_init(&global->message, NULL) != 0)
+		return ;
+	if (pthread_mutex_init(&global->fork_checker, NULL) != 0)
 		return ;
 }
