@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 15:03:38 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/09/02 01:09:58 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/09/02 13:25:58 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,12 @@ int	init_each_philo(t_global *global)
 		global->philo[i] = malloc(sizeof(t_philo));
 		if (!global->philo[i])
 			return (1);
-		global->philo[i]->status = EAT;
+		pthread_mutex_init(&global->philo[i]->fork, NULL);
 		global->philo[i]->id = (i + 1);
+		global->philo[i]->nb_meal = 0;
+		global->philo[i]->status = EAT;
 		global->philo[i]->time_last_meal = timestamp_in_ms();
 		global->philo[i]->global = global;
-		global->philo[i]->meal = 0;
 		i++;
 	}
 	return (0);
@@ -108,6 +109,8 @@ int	init_global_variables(t_global *g, char **argv)
 		g->time_must_eat = -1;
 	g->meal_count = g->nb_philo * g->time_must_eat;
 	g->status = EAT;
+	pthread_mutex_init(&g->message, NULL);
+	pthread_mutex_init(&g->fork_checker, NULL);
 	return (0);
 }
 
@@ -122,9 +125,9 @@ int	init_global_variables(t_global *g, char **argv)
 int	init_variables(t_global *global, char **argv)
 {
 	if (init_global_variables(global, argv))
-		return (error(ERR_DATA));
+		return (1);
 	if (init_each_philo(global))
-		return (error(ERR_MALLOC));
+		return (1);
 	philo_right_fork(global);
 	return (0);
 }

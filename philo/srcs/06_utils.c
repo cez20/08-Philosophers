@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   07_utils.c                                         :+:      :+:    :+:   */
+/*   06_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 16:43:04 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/09/01 17:59:48 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/09/02 13:29:35 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,41 +46,6 @@ void	sequential_usleep(long long total_time_for_action, t_global *g)
 			break ;
 		usleep(50);
 	}
-}
-
-/* Function to print message. Uses lock and unlock to
-make sure no other message appear. Also, 1st condition
-prints that philo is eating and then prints that they all
-ate (when all ate is at 0). In other cases, it prints the 
-message that has been given as argument */
-void	print_message(t_philo *p, char *str)
-{	
-	t_global	*g;
-
-	g = p->global;
-	pthread_mutex_lock(&g->message);
-	//if (g->status != DONE && g->status != DIED)
-	if ((g->status != DIED) && (p->meal != g->time_must_eat))
-	{
-		if (g->time_must_eat != 0)
-		{
-			printf("%lld ", timestamp_in_ms() - g->timestamp_start);
-			printf("%d ", p->id);
-			printf("%s", str);
-			if (ft_strcmp(str, "is eating\n") == 0 && \
-			p->meal != g->time_must_eat)
-			{
-				g->meal_count--;
-				p->meal++;
-			}
-		}
-		if (g->meal_count == 0)
-		{
-			g->status = DONE;
-			printf("ALL PHILOSOPHERS ATE!!!\n");
-		}
-	}
-	pthread_mutex_unlock(&g->message);
 }
 
 /*Fonction to calculate timestamp in milliseconds

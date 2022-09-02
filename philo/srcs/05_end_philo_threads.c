@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   05_end_philo_threads.c                             :+:      :+:    :+:   */
+/*   04_end_threads.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 12:38:01 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/09/02 00:52:48 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/09/02 13:09:50 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,11 @@ int	end_philo_threads(t_global *g)
 	{
 		if (pthread_join(g->philo[i]->thread, NULL))
 			return (1);
+		pthread_mutex_destroy(&g->philo[i]->fork);
 		i++;
 	}
+	pthread_mutex_destroy(&g->message);
+	pthread_mutex_destroy(&g->fork_checker);
+	free_struct(g);
 	return (0);
 }

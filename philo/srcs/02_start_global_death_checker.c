@@ -1,30 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   03_death_checker.c                                 :+:      :+:    :+:   */
+/*   02_start_global_death_checker.c                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 11:05:54 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/09/01 17:20:51 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/09/02 13:32:28 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-/* This is the message that is printed out when philo dies
-We lock the mutex "message" to make sure that no other message
-is printed out. Once unlocked, no other messsage is printed out
-because a condition in print_message function states that the status
-must be different that DIED (if global->status != DIED) */
-void	is_dying(t_philo *p, char *str)
-{
-	pthread_mutex_lock(&p->global->message);
-	printf("%lld ", timestamp_in_ms() - p->global->timestamp_start);
-	printf("%d ", p->id);
-	printf("%s", str);
-	pthread_mutex_unlock(&p->global->message);
-}
 
 /*This function initialize the thread death_checker which is separate from
 the philo_threads. This thread sole purpose is to continuously verify if the 
@@ -55,5 +41,6 @@ void	*check_if_dead(void *global)
 			i++;
 		}
 	}
+	pthread_detach(g->death_checker);
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 15:54:43 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/09/02 00:57:17 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/09/02 13:32:36 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 # include <unistd.h> //for usleep function
 
 # define ERR_ARGS "Error! Wrong number of arguments!\n"
-# define ERR_DATA "Error! Arguments are negative numbers, float, letters, etc\n"
-# define ERR_MALLOC "Error! Malloc didn't work\n"
+# define ERR_DATA "Error! Arguments are not valid integers for simulation!\n"
+# define ERR_THREAD "Error! Problem while creating thread!\n"
 # define DIED 0
 # define EAT 1
 # define SLEEP 2
@@ -40,18 +40,18 @@ typedef struct s_global
 	long long		timestamp_start;
 	int				meal_count;
 	int				status;
+	pthread_t		death_checker;
 	pthread_mutex_t	message;
 	pthread_mutex_t	fork_checker;
-	pthread_t		death_checker;
 	t_philo			**philo;
 }			t_global;
 
 typedef struct s_philo
 {
-	int				status;
 	int				id;
+	int				nb_meal;
+	int				status;
 	long long		time_last_meal;
-	int				meal;
 	pthread_t		thread;
 	pthread_mutex_t	fork;
 	pthread_mutex_t	*right_fork;
@@ -62,31 +62,28 @@ typedef struct s_philo
 int			main(int argc, char **argv);
 
 //*** 01_INIT_VARIABLES.C ***
-//void		init_variables(t_global *global, char **argv);
 int			init_variables(t_global *global, char **argv);
-//void		init_global_variables(t_global *global, char **argv);
 int			init_global_variables(t_global *g, char **argv);
 int			valid_int(char *argv);
 int			init_each_philo(t_global *global);
 void		philo_right_fork(t_global *global);
 
-//*** 02_INIT_MUTEX.C ***
-int			init_mutex(t_global *global);
-int			destroy_mutex(t_global *global);
-
-//*** 03_DEATH_CHECKER.C ***
-void		is_dying(t_philo *p, char *str);
+//*** 02_DEATH_CHECKER.C ***
 void		*check_if_dead(void *global);
 
-//*** 04_START_PHILO_THREADS.C ***
+//*** 03_START_PHILO_THREADS.C ***
 
-void		is_thinking(t_philo *p);
-void		is_sleeping(t_philo *p);
-void		is_eating(t_philo *p);
 void		*start(void *p);
 int			start_philo_threads(t_global *g);
 
-//*** 04_END_PHILO_THREADS.C ***
+//*** 04_PRINT_MESSAGE.C ***
+void		is_dying(t_philo *p, char *str);
+void		is_thinking(t_philo *p);
+void		is_sleeping(t_philo *p);
+void		is_eating(t_philo *p);
+void		print_message(t_philo *p, char *str);
+
+//*** 05_END_PHILO_THREADS.C ***
 int			end_philo_threads(t_global *g);
 
 //*** 05_LIBFT_UTILS.C *** 
@@ -100,7 +97,6 @@ void		free_struct(t_global *global);
 void		sequential_usleep(long long total_time_for_action, t_global *g);
 void		print_message(t_philo *p, char *str);
 long long	timestamp_in_ms(void);
-//void		error(char *str);
 int			error(char *str);
 
 #endif
