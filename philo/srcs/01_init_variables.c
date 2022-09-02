@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 15:03:38 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/09/01 18:29:12 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/09/02 01:09:58 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,41 +41,19 @@ void	philo_right_fork(t_global *global)
    inside the t_philo struct and assign a value to each 
    of its variable. */
 
-// void	init_each_philo(t_global *global)
-// {
-// 	int	i;
-
-// 	global->philo = malloc(global->nb_philo * sizeof(t_philo *));
-// 	if (!global->philo)
-// 		return ;
-// 	i = 0;
-// 	while (i < global->nb_philo)
-// 	{
-// 		global->philo[i] = malloc(sizeof(t_philo));
-// 		if (!global->philo[i])
-// 			return ;
-// 		global->philo[i]->status = EAT;
-// 		global->philo[i]->id = (i + 1);
-// 		global->philo[i]->time_last_meal = timestamp_in_ms();
-// 		global->philo[i]->global = global;
-// 		global->philo[i]->meal = 0;
-// 		i++;
-// 	}
-// }
-
-void	init_each_philo(t_global *global)
+int	init_each_philo(t_global *global)
 {
 	int	i;
 
 	global->philo = malloc(global->nb_philo * sizeof(t_philo *));
 	if (!global->philo)
-		return ;
+		return (1);
 	i = 0;
 	while (i < global->nb_philo)
 	{
 		global->philo[i] = malloc(sizeof(t_philo));
 		if (!global->philo[i])
-			return ;
+			return (1);
 		global->philo[i]->status = EAT;
 		global->philo[i]->id = (i + 1);
 		global->philo[i]->time_last_meal = timestamp_in_ms();
@@ -83,6 +61,7 @@ void	init_each_philo(t_global *global)
 		global->philo[i]->meal = 0;
 		i++;
 	}
+	return (0);
 }
 
 /*This function validations, that all arguments are digits and secondly 
@@ -99,53 +78,36 @@ int	valid_int(char *argv)
 	while (argv[i])
 	{
 		if (ft_isdigit(argv[i]) != 1)
-			return (error(ERR_DATA));
+			return (-1);
 		i++;
 	}
 	nb = ft_atoi(argv);
 	if (nb < 0)
-		return (error(ERR_DATA));
+		return (-1);
 	return (nb);
 }
 
 /* This function initializes all the basic variables 
 inside the t_global struct */
-// void	init_global_variables(t_global *global, char **argv)
-// {
-// 	global->nb_philo = valid_int(argv[1]);
-// 	global->time_to_die = valid_int(argv[2]);
-// 	global->time_to_eat = valid_int(argv[3]);
-// 	global->time_to_sleep = valid_int(argv[4]);
-// 	if (argv[5])
-// 		global->time_must_eat = valid_int(argv[5]);
-// 	else
-// 		global->time_must_eat = -1;
-// 	if (global->time_must_eat == 0)
-// 		error(ERR_DATA);
-// 	if (global->nb_philo == 0)
-// 		error(ERR_PHILO);
-// 	global->meal_count = global->nb_philo * global->time_must_eat;
-// 	global->status = EAT;
-// }
-
-int	init_global_variables(t_global *global, char **argv)
+int	init_global_variables(t_global *g, char **argv)
 {
-	global->nb_philo = valid_int(argv[1]);
-	global->time_to_die = valid_int(argv[2]);
-	global->time_to_eat = valid_int(argv[3]);
-	global->time_to_sleep = valid_int(argv[4]);
+	g->nb_philo = valid_int(argv[1]);
+	g->time_to_die = valid_int(argv[2]);
+	g->time_to_eat = valid_int(argv[3]);
+	g->time_to_sleep = valid_int(argv[4]);
+	if (g->nb_philo <= 0 || g->time_to_die < 0 || g->time_to_eat < 0 \
+	|| g->time_to_sleep < 0)
+		return (1);
 	if (argv[5])
 	{
-		global->time_must_eat = valid_int(argv[5]);
-		if (global->time_must_eat == 0)
-			return(error(ERR_DATA));
+		g->time_must_eat = valid_int(argv[5]);
+		if (g->time_must_eat <= 0)
+			return (1);
 	}
 	else
-		global->time_must_eat = -1;
-	if (global->nb_philo <= 0 || global->time_to_die )
-		return(error(ERR_PHILO));
-	global->meal_count = global->nb_philo * global->time_must_eat;
-	global->status = EAT;
+		g->time_must_eat = -1;
+	g->meal_count = g->nb_philo * g->time_must_eat;
+	g->status = EAT;
 	return (0);
 }
 
@@ -157,20 +119,12 @@ int	init_global_variables(t_global *global, char **argv)
   3- init_each philo mallocs each philosophers (t_philo struct) and 
   the data it contains.*/
 
-// void	init_variables(t_global *global, char **argv)
-// {
-// 	init_global_variables(global, argv);
-// 	init_each_philo(global);
-// 	philo_right_fork(global);
-// }
-
 int	init_variables(t_global *global, char **argv)
 {
 	if (init_global_variables(global, argv))
-		return (1);
-	// if (init_each_philo(global));
-	// 	return (1);
-	// if(philo_right_fork(global))
-	// 	return (1)
+		return (error(ERR_DATA));
+	if (init_each_philo(global))
+		return (error(ERR_MALLOC));
+	philo_right_fork(global);
 	return (0);
 }

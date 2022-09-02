@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 15:54:43 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/09/01 18:12:34 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/09/02 00:57:17 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 # define ERR_ARGS "Error! Wrong number of arguments!\n"
 # define ERR_DATA "Error! Arguments are negative numbers, float, letters, etc\n"
-# define ERR_PHILO "Error! There are no philosophers to do the simulation\n"
+# define ERR_MALLOC "Error! Malloc didn't work\n"
 # define DIED 0
 # define EAT 1
 # define SLEEP 2
@@ -65,14 +65,14 @@ int			main(int argc, char **argv);
 //void		init_variables(t_global *global, char **argv);
 int			init_variables(t_global *global, char **argv);
 //void		init_global_variables(t_global *global, char **argv);
-int			init_global_variables(t_global *global, char **argv);
+int			init_global_variables(t_global *g, char **argv);
 int			valid_int(char *argv);
-void		init_each_philo(t_global *global);
+int			init_each_philo(t_global *global);
 void		philo_right_fork(t_global *global);
 
 //*** 02_INIT_MUTEX.C ***
-void		init_mutex(t_global *global);
-void		destroy_mutex(t_global *global);
+int			init_mutex(t_global *global);
+int			destroy_mutex(t_global *global);
 
 //*** 03_DEATH_CHECKER.C ***
 void		is_dying(t_philo *p, char *str);
@@ -84,10 +84,10 @@ void		is_thinking(t_philo *p);
 void		is_sleeping(t_philo *p);
 void		is_eating(t_philo *p);
 void		*start(void *p);
-void		start_philo_threads(t_global *p);
+int			start_philo_threads(t_global *g);
 
 //*** 04_END_PHILO_THREADS.C ***
-void		end_philo_threads(t_global *g);
+int			end_philo_threads(t_global *g);
 
 //*** 05_LIBFT_UTILS.C *** 
 int			ft_isdigit(int c);

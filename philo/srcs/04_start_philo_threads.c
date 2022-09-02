@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 15:59:40 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/09/01 17:42:25 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/09/02 01:10:27 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 void	is_thinking(t_philo *p)
 {
 	print_message(p, "is thinking\n");
-	usleep(200);
+	usleep(100);
 	p->status = EAT;
 }
 
@@ -91,7 +91,7 @@ pthread_create.The "philo_thread" goes inside the function "start"
 to realize all acton in loop.Then, the "MAIN" thread updates the 
 time_last_meal for current philo thread and then goes again in the loop 
 to create the threads for all remaining philosophers*/
-void	start_philo_threads(t_global *g)
+int	start_philo_threads(t_global *g)
 {
 	int	i;
 
@@ -100,8 +100,9 @@ void	start_philo_threads(t_global *g)
 	while (i < g->nb_philo)
 	{	
 		if (pthread_create(&g->philo[i]->thread, NULL, start, g->philo[i]) != 0)
-			return ;
+			return (1);
 		g->philo[i]->time_last_meal = timestamp_in_ms();
 		i++;
 	}
+	return (0);
 }
