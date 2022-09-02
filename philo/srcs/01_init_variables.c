@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 15:03:38 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/09/02 13:25:58 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/09/02 14:54:58 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,6 @@ int	init_global_variables(t_global *g, char **argv)
 	g->meal_count = g->nb_philo * g->time_must_eat;
 	g->status = EAT;
 	pthread_mutex_init(&g->message, NULL);
-	pthread_mutex_init(&g->fork_checker, NULL);
 	return (0);
 }
 

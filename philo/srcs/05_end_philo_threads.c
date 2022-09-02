@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 12:38:01 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/09/02 14:04:18 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/09/02 14:54:50 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int	end_philo_threads(t_global *g)
 		i++;
 	}
 	pthread_mutex_destroy(&g->message);
-	pthread_mutex_destroy(&g->fork_checker);
 	free_struct(g);
 	return (0);
 }

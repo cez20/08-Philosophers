@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 13:29:18 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/09/02 14:14:28 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/09/02 16:22:08 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	is_dying(t_philo *p, char *str)
 void	is_thinking(t_philo *p)
 {
 	print_message(p, "is thinking\n");
-	//usleep(100);
+	usleep(100);
 	p->status = EAT;
 }
 
@@ -59,11 +59,9 @@ void	is_eating(t_philo *p)
 	}
 	else
 	{
-		pthread_mutex_lock(&p->global->fork_checker);
 		pthread_mutex_lock(&p->fork);
 		print_message(p, "has taken a fork\n");
 		pthread_mutex_lock(p->right_fork);
-		pthread_mutex_unlock(&p->global->fork_checker);
 		print_message(p, "has taken a fork\n");
 		print_message(p, "is eating\n");
 		p->time_last_meal = timestamp_in_ms();
@@ -87,7 +85,7 @@ void	print_message(t_philo *p, char *str)
 	pthread_mutex_lock(&g->message);
 	if (g->status != DIED && g->status != DONE)
 	{
-		if (g->time_must_eat != 0 && p->nb_meal != g->time_must_eat)
+		if (g->time_must_eat != 0)
 		{
 			printf("%lld ", timestamp_in_ms() - g->timestamp_start);
 			printf("%d ", p->id);

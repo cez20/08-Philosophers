@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 15:54:43 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/09/02 13:32:36 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/09/02 14:47:10 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ typedef struct s_global
 	int				status;
 	pthread_t		death_checker;
 	pthread_mutex_t	message;
-	pthread_mutex_t	fork_checker;
+	//pthread_mutex_t	fork_checker;
 	t_philo			**philo;
 }			t_global;
 

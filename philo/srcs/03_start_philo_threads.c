@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 15:59:40 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/09/02 14:25:57 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/09/02 14:42:07 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	*start(void *p)
 	t_philo		*philo;
 
 	philo = (t_philo *)p;
+	
 	if ((philo->id % 2) == 0)
 		usleep(15000);
 	philo->time_last_meal = timestamp_in_ms();
