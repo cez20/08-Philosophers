@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 15:59:40 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/09/02 13:45:45 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/09/02 14:25:57 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ void	*start(void *p)
 	t_philo		*philo;
 
 	philo = (t_philo *)p;
-	if ((philo->id % 2) == 1)
+	if ((philo->id % 2) == 0)
 		usleep(15000);
-	//philo->time_last_meal = timestamp_in_ms();
+	philo->time_last_meal = timestamp_in_ms();
 	while (philo->global->status != DIED)
 	{
 		if (philo->status == EAT)
@@ -54,7 +54,6 @@ int	start_philo_threads(t_global *g)
 	{	
 		if (pthread_create(&g->philo[i]->thread, NULL, start, g->philo[i]) != 0)
 			return (1);
-		g->philo[i]->time_last_meal = timestamp_in_ms();
 		i++;
 	}
 	return (0);

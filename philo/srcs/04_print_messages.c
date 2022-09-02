@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 13:29:18 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/09/02 13:44:57 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/09/02 14:14:28 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	is_dying(t_philo *p, char *str)
 void	is_thinking(t_philo *p)
 {
 	print_message(p, "is thinking\n");
-	usleep(100);
+	//usleep(100);
 	p->status = EAT;
 }
 
@@ -85,10 +85,9 @@ void	print_message(t_philo *p, char *str)
 
 	g = p->global;
 	pthread_mutex_lock(&g->message);
-	//if (g->status != DONE && g->status != DIED)
-	if ((g->status != DIED) && (p->nb_meal != g->time_must_eat))
+	if (g->status != DIED && g->status != DONE)
 	{
-		if (g->time_must_eat != 0)
+		if (g->time_must_eat != 0 && p->nb_meal != g->time_must_eat)
 		{
 			printf("%lld ", timestamp_in_ms() - g->timestamp_start);
 			printf("%d ", p->id);

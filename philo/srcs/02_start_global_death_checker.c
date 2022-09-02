@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 11:05:54 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/09/02 13:32:28 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/09/02 14:02:01 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	*check_if_dead(void *global)
 		while (i < g->nb_philo)
 		{
 			current_time = timestamp_in_ms();
-			if ((current_time - g->philo[i]->time_last_meal) >= g->time_to_die)
+			if ((current_time - g->philo[i]->time_last_meal) > g->time_to_die)
 			{
 				g->status = DIED;
 				is_dying(g->philo[i], "died\n");
