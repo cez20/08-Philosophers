@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 13:29:18 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/09/02 16:22:08 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/09/21 17:13:45 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,11 @@ because a condition in print_message function states that the status
 must be different that DIED (if global->status != DIED) */
 void	is_dying(t_philo *p, char *str)
 {
+	long long	time;
+
+	time = timestamp_in_ms() - p->global->timestamp_start;
 	pthread_mutex_lock(&p->global->message);
-	printf("%lld ", timestamp_in_ms() - p->global->timestamp_start);
-	printf("%d ", p->id);
-	printf("%s", str);
+	printf("%lld %d %s", time, p->id, str);
 	pthread_mutex_unlock(&p->global->message);
 }
 
@@ -88,8 +89,7 @@ void	print_message(t_philo *p, char *str)
 		if (g->time_must_eat != 0)
 		{
 			printf("%lld ", timestamp_in_ms() - g->timestamp_start);
-			printf("%d ", p->id);
-			printf("%s", str);
+			printf("%d %s", p->id, str);
 			if (ft_strcmp(str, "is eating\n") == 0 && \
 			p->nb_meal != g->time_must_eat)
 			{
@@ -99,8 +99,9 @@ void	print_message(t_philo *p, char *str)
 		}
 		if (g->meal_count == 0)
 		{
+			sequential_usleep(p->global->time_to_eat, p->global);
 			g->status = DONE;
-			printf("ALL PHILOSOPHERS ATE!!!\n");
+			printf("ALL PHILOSOPHERS ATE!\n");
 		}
 	}
 	pthread_mutex_unlock(&g->message);
