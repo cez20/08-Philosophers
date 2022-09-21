@@ -1,5 +1,6 @@
 make --dry-run --keep-going --print-directory
 make: Entering directory `/Users/cemenjiv/Desktop/42Quebec/42Projects/philo'
+ 
 make: Leaving directory `/Users/cemenjiv/Desktop/42Quebec/42Projects/philo'
  
 make: *** No targets specified and no makefile found.  Stop.
