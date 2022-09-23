@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 15:54:30 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/09/02 13:12:51 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/09/23 11:10:55 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ int	main(int argc, char **argv)
 		return (error(ERR_ARGS));
 	if (init_variables(&global, argv))
 		return (error(ERR_DATA));
-	if (pthread_create(&global.death_checker, NULL, check_if_dead, &global))
-		return (error(ERR_THREAD));
 	if (start_philo_threads(&global))
+		return (error(ERR_THREAD));
+	if (pthread_create(&global.death_checker, NULL, check_if_dead, &global))
 		return (error(ERR_THREAD));
 	if (end_philo_threads(&global))
 		return (error(ERR_THREAD));
