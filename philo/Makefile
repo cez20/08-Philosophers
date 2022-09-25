@@ -6,7 +6,7 @@
 #    By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/20 15:53:41 by cemenjiv          #+#    #+#              #
-#    Updated: 2022/09/01 12:30:06 by cemenjiv         ###   ########.fr        #
+#    Updated: 2022/09/25 11:51:10 by cemenjiv         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,10 @@ CC				= gcc
 CFLAGS			= -Wall -Wextra -Werror -g
 RM				= rm -f
 
-SRCS			= $(wildcard $(SRCS_DIR)*.c)
+SRCS			= srcs/00_main.c srcs/01_init_variables.c srcs/02_start_global_death_checker.c \
+				  srcs/03_start_philo_threads.c srcs/04_print_messages.c srcs/05_end_philo_threads.c \
+				  srcs/06_libft_utils.c srcs/07_utils.c 
+				  
 OBJS			= $(patsubst $(SRCS_DIR)%.c, $(OBJS_DIR)%.o, $(SRCS))
 
 $(OBJS_DIR)%.o: $(SRCS_DIR)%.c

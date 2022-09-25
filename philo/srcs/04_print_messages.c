@@ -6,7 +6,7 @@
 /*   By: cemenjiv <cemenjiv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 13:29:18 by cemenjiv          #+#    #+#             */
-/*   Updated: 2022/09/21 17:13:45 by cemenjiv         ###   ########.fr       */
+/*   Updated: 2022/09/25 12:00:55 by cemenjiv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,13 @@ void	is_dying(t_philo *p, char *str)
 {
 	long long	time;
 
-	time = timestamp_in_ms() - p->global->timestamp_start;
-	pthread_mutex_lock(&p->global->message);
-	printf("%lld %d %s", time, p->id, str);
-	pthread_mutex_unlock(&p->global->message);
+	if (p->global->status != DONE)
+	{
+		time = timestamp_in_ms() - p->global->timestamp_start;
+		pthread_mutex_lock(&p->global->message);
+		printf("%lld %d %s", time, p->id, str);
+		pthread_mutex_unlock(&p->global->message);
+	}
 }
 
 /*Message to be printed out when philo thinks*/
@@ -102,6 +105,7 @@ void	print_message(t_philo *p, char *str)
 			sequential_usleep(p->global->time_to_eat, p->global);
 			g->status = DONE;
 			printf("ALL PHILOSOPHERS ATE!\n");
+			usleep(100);
 		}
 	}
 	pthread_mutex_unlock(&g->message);
